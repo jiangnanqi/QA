@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblConfigureMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblConfigure" >
+    <id column="CONFIGUREID" property="configureid" jdbcType="VARCHAR" />
+    <result column="CONFIGURETYPE" property="configuretype" jdbcType="VARCHAR" />
+    <result column="CONFIGURENAME" property="configurename" jdbcType="VARCHAR" />
+    <result column="FILESIZE" property="filesize" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="DOWNLOADTIMES" property="downloadtimes" jdbcType="VARCHAR" />
+    <result column="PRODUCER" property="producer" jdbcType="VARCHAR" />
+    <result column="CONFIGURETIME" property="configuretime" jdbcType="VARCHAR" />
+    <result column="ISCONFIGURE" property="isconfigure" jdbcType="INTEGER" />
+    <result column="RENAME" property="rename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONFIGUREID, CONFIGURETYPE, CONFIGURENAME, FILESIZE, URL, DOWNLOADTIMES, PRODUCER, 
+    CONFIGURETIME, ISCONFIGURE, RENAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblConfigureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_configure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_configure
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_configure
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblConfigureExample" >
+    delete from tbl_configure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblConfigure" >
+    insert into tbl_configure (CONFIGUREID, CONFIGURETYPE, CONFIGURENAME, 
+      FILESIZE, URL, DOWNLOADTIMES, 
+      PRODUCER, CONFIGURETIME, ISCONFIGURE, 
+      RENAME)
+    values (#{configureid,jdbcType=VARCHAR}, #{configuretype,jdbcType=VARCHAR}, #{configurename,jdbcType=VARCHAR}, 
+      #{filesize,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{downloadtimes,jdbcType=VARCHAR}, 
+      #{producer,jdbcType=VARCHAR}, #{configuretime,jdbcType=VARCHAR}, #{isconfigure,jdbcType=INTEGER}, 
+      #{rename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblConfigure" >
+    insert into tbl_configure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        CONFIGUREID,
+      </if>
+      <if test="configuretype != null" >
+        CONFIGURETYPE,
+      </if>
+      <if test="configurename != null" >
+        CONFIGURENAME,
+      </if>
+      <if test="filesize != null" >
+        FILESIZE,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="downloadtimes != null" >
+        DOWNLOADTIMES,
+      </if>
+      <if test="producer != null" >
+        PRODUCER,
+      </if>
+      <if test="configuretime != null" >
+        CONFIGURETIME,
+      </if>
+      <if test="isconfigure != null" >
+        ISCONFIGURE,
+      </if>
+      <if test="rename != null" >
+        RENAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="configuretype != null" >
+        #{configuretype,jdbcType=VARCHAR},
+      </if>
+      <if test="configurename != null" >
+        #{configurename,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null" >
+        #{filesize,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadtimes != null" >
+        #{downloadtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="producer != null" >
+        #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="configuretime != null" >
+        #{configuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="isconfigure != null" >
+        #{isconfigure,jdbcType=INTEGER},
+      </if>
+      <if test="rename != null" >
+        #{rename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblConfigureExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_configure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_configure
+    <set >
+      <if test="record.configureid != null" >
+        CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configuretype != null" >
+        CONFIGURETYPE = #{record.configuretype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configurename != null" >
+        CONFIGURENAME = #{record.configurename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filesize != null" >
+        FILESIZE = #{record.filesize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.downloadtimes != null" >
+        DOWNLOADTIMES = #{record.downloadtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.producer != null" >
+        PRODUCER = #{record.producer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configuretime != null" >
+        CONFIGURETIME = #{record.configuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isconfigure != null" >
+        ISCONFIGURE = #{record.isconfigure,jdbcType=INTEGER},
+      </if>
+      <if test="record.rename != null" >
+        RENAME = #{record.rename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_configure
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      CONFIGURETYPE = #{record.configuretype,jdbcType=VARCHAR},
+      CONFIGURENAME = #{record.configurename,jdbcType=VARCHAR},
+      FILESIZE = #{record.filesize,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      DOWNLOADTIMES = #{record.downloadtimes,jdbcType=VARCHAR},
+      PRODUCER = #{record.producer,jdbcType=VARCHAR},
+      CONFIGURETIME = #{record.configuretime,jdbcType=VARCHAR},
+      ISCONFIGURE = #{record.isconfigure,jdbcType=INTEGER},
+      RENAME = #{record.rename,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblConfigure" >
+    update tbl_configure
+    <set >
+      <if test="configuretype != null" >
+        CONFIGURETYPE = #{configuretype,jdbcType=VARCHAR},
+      </if>
+      <if test="configurename != null" >
+        CONFIGURENAME = #{configurename,jdbcType=VARCHAR},
+      </if>
+      <if test="filesize != null" >
+        FILESIZE = #{filesize,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadtimes != null" >
+        DOWNLOADTIMES = #{downloadtimes,jdbcType=VARCHAR},
+      </if>
+      <if test="producer != null" >
+        PRODUCER = #{producer,jdbcType=VARCHAR},
+      </if>
+      <if test="configuretime != null" >
+        CONFIGURETIME = #{configuretime,jdbcType=VARCHAR},
+      </if>
+      <if test="isconfigure != null" >
+        ISCONFIGURE = #{isconfigure,jdbcType=INTEGER},
+      </if>
+      <if test="rename != null" >
+        RENAME = #{rename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblConfigure" >
+    update tbl_configure
+    set CONFIGURETYPE = #{configuretype,jdbcType=VARCHAR},
+      CONFIGURENAME = #{configurename,jdbcType=VARCHAR},
+      FILESIZE = #{filesize,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      DOWNLOADTIMES = #{downloadtimes,jdbcType=VARCHAR},
+      PRODUCER = #{producer,jdbcType=VARCHAR},
+      CONFIGURETIME = #{configuretime,jdbcType=VARCHAR},
+      ISCONFIGURE = #{isconfigure,jdbcType=INTEGER},
+      RENAME = #{rename,jdbcType=VARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+</mapper>

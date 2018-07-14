@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblPatchMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblPatch" >
+    <id column="CONFIGUREID" property="configureid" jdbcType="VARCHAR" />
+    <result column="PATCHNUMBER" property="patchnumber" jdbcType="VARCHAR" />
+    <result column="LANGUAGE" property="language" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pojo.TblPatchWithBLOBs" extends="BaseResultMap" >
+    <result column="OS" property="os" jdbcType="LONGVARCHAR" />
+    <result column="PATCHINTRODUCTION" property="patchintroduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONFIGUREID, PATCHNUMBER, LANGUAGE
+  </sql>
+  <sql id="Blob_Column_List" >
+    OS, PATCHINTRODUCTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pojo.TblPatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_patch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblPatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_patch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_patch
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_patch
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblPatchExample" >
+    delete from tbl_patch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblPatchWithBLOBs" >
+    insert into tbl_patch (CONFIGUREID, PATCHNUMBER, LANGUAGE, 
+      OS, PATCHINTRODUCTION)
+    values (#{configureid,jdbcType=VARCHAR}, #{patchnumber,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, 
+      #{os,jdbcType=LONGVARCHAR}, #{patchintroduction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblPatchWithBLOBs" >
+    insert into tbl_patch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        CONFIGUREID,
+      </if>
+      <if test="patchnumber != null" >
+        PATCHNUMBER,
+      </if>
+      <if test="language != null" >
+        LANGUAGE,
+      </if>
+      <if test="os != null" >
+        OS,
+      </if>
+      <if test="patchintroduction != null" >
+        PATCHINTRODUCTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="patchnumber != null" >
+        #{patchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="patchintroduction != null" >
+        #{patchintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblPatchExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_patch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_patch
+    <set >
+      <if test="record.configureid != null" >
+        CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patchnumber != null" >
+        PATCHNUMBER = #{record.patchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.language != null" >
+        LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      </if>
+      <if test="record.os != null" >
+        OS = #{record.os,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.patchintroduction != null" >
+        PATCHINTRODUCTION = #{record.patchintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_patch
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      PATCHNUMBER = #{record.patchnumber,jdbcType=VARCHAR},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR},
+      OS = #{record.os,jdbcType=LONGVARCHAR},
+      PATCHINTRODUCTION = #{record.patchintroduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_patch
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      PATCHNUMBER = #{record.patchnumber,jdbcType=VARCHAR},
+      LANGUAGE = #{record.language,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblPatchWithBLOBs" >
+    update tbl_patch
+    <set >
+      <if test="patchnumber != null" >
+        PATCHNUMBER = #{patchnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null" >
+        LANGUAGE = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        OS = #{os,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="patchintroduction != null" >
+        PATCHINTRODUCTION = #{patchintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.TblPatchWithBLOBs" >
+    update tbl_patch
+    set PATCHNUMBER = #{patchnumber,jdbcType=VARCHAR},
+      LANGUAGE = #{language,jdbcType=VARCHAR},
+      OS = #{os,jdbcType=LONGVARCHAR},
+      PATCHINTRODUCTION = #{patchintroduction,jdbcType=LONGVARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblPatch" >
+    update tbl_patch
+    set PATCHNUMBER = #{patchnumber,jdbcType=VARCHAR},
+      LANGUAGE = #{language,jdbcType=VARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+</mapper>

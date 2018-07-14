@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblUserEquipmentHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblUserEquipmentHistory" >
+    <id column="USEREQUIPMENTHISTORYID" property="userequipmenthistoryid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="EQUIPMENTID" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="ALLOCATIONSTARTTIME" property="allocationstarttime" jdbcType="VARCHAR" />
+    <result column="ALLOCATIONENDTIME" property="allocationendtime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USEREQUIPMENTHISTORYID, USERID, EQUIPMENTID, ALLOCATIONSTARTTIME, ALLOCATIONENDTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblUserEquipmentHistoryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_user_equipment_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_user_equipment_history
+    where USEREQUIPMENTHISTORYID = #{userequipmenthistoryid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_user_equipment_history
+    where USEREQUIPMENTHISTORYID = #{userequipmenthistoryid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblUserEquipmentHistoryExample" >
+    delete from tbl_user_equipment_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblUserEquipmentHistory" >
+    insert into tbl_user_equipment_history (USEREQUIPMENTHISTORYID, USERID, EQUIPMENTID, 
+      ALLOCATIONSTARTTIME, ALLOCATIONENDTIME)
+    values (#{userequipmenthistoryid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{equipmentid,jdbcType=VARCHAR}, 
+      #{allocationstarttime,jdbcType=VARCHAR}, #{allocationendtime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblUserEquipmentHistory" >
+    insert into tbl_user_equipment_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userequipmenthistoryid != null" >
+        USEREQUIPMENTHISTORYID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="equipmentid != null" >
+        EQUIPMENTID,
+      </if>
+      <if test="allocationstarttime != null" >
+        ALLOCATIONSTARTTIME,
+      </if>
+      <if test="allocationendtime != null" >
+        ALLOCATIONENDTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userequipmenthistoryid != null" >
+        #{userequipmenthistoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationstarttime != null" >
+        #{allocationstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationendtime != null" >
+        #{allocationendtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblUserEquipmentHistoryExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_user_equipment_history
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_user_equipment_history
+    <set >
+      <if test="record.userequipmenthistoryid != null" >
+        USEREQUIPMENTHISTORYID = #{record.userequipmenthistoryid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentid != null" >
+        EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allocationstarttime != null" >
+        ALLOCATIONSTARTTIME = #{record.allocationstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.allocationendtime != null" >
+        ALLOCATIONENDTIME = #{record.allocationendtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_user_equipment_history
+    set USEREQUIPMENTHISTORYID = #{record.userequipmenthistoryid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      ALLOCATIONSTARTTIME = #{record.allocationstarttime,jdbcType=VARCHAR},
+      ALLOCATIONENDTIME = #{record.allocationendtime,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblUserEquipmentHistory" >
+    update tbl_user_equipment_history
+    <set >
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationstarttime != null" >
+        ALLOCATIONSTARTTIME = #{allocationstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="allocationendtime != null" >
+        ALLOCATIONENDTIME = #{allocationendtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USEREQUIPMENTHISTORYID = #{userequipmenthistoryid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblUserEquipmentHistory" >
+    update tbl_user_equipment_history
+    set USERID = #{userid,jdbcType=VARCHAR},
+      EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR},
+      ALLOCATIONSTARTTIME = #{allocationstarttime,jdbcType=VARCHAR},
+      ALLOCATIONENDTIME = #{allocationendtime,jdbcType=VARCHAR}
+    where USEREQUIPMENTHISTORYID = #{userequipmenthistoryid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblFaqquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblFaqquestion" >
+    <id column="FAQQUESTIONID" property="faqquestionid" jdbcType="VARCHAR" />
+    <result column="FAQTITLE" property="faqtitle" jdbcType="VARCHAR" />
+    <result column="FAQKEYWORDS" property="faqkeywords" jdbcType="VARCHAR" />
+    <result column="FAQCLASSIFYID" property="faqclassifyid" jdbcType="VARCHAR" />
+    <result column="COLLECTION" property="collection" jdbcType="VARCHAR" />
+    <result column="SCAN" property="scan" jdbcType="VARCHAR" />
+    <result column="MODIFYTIME" property="modifytime" jdbcType="VARCHAR" />
+    <result column="MODIFYNUMBER" property="modifynumber" jdbcType="VARCHAR" />
+    <result column="FAQSTATE" property="faqstate" jdbcType="INTEGER" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pojo.TblFaqquestion" extends="BaseResultMap" >
+    <result column="FAQDESCRIPTION" property="faqdescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FAQQUESTIONID, FAQTITLE, FAQKEYWORDS, FAQCLASSIFYID, COLLECTION, SCAN, MODIFYTIME, 
+    MODIFYNUMBER, FAQSTATE, USERID
+  </sql>
+  <sql id="Blob_Column_List" >
+    FAQDESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pojo.TblFaqquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_faqquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblFaqquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_faqquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_faqquestion
+    where FAQQUESTIONID = #{faqquestionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_faqquestion
+    where FAQQUESTIONID = #{faqquestionid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblFaqquestionExample" >
+    delete from tbl_faqquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblFaqquestion" >
+    insert into tbl_faqquestion (FAQQUESTIONID, FAQTITLE, FAQKEYWORDS, 
+      FAQCLASSIFYID, COLLECTION, SCAN, 
+      MODIFYTIME, MODIFYNUMBER, FAQSTATE, 
+      USERID, FAQDESCRIPTION)
+    values (#{faqquestionid,jdbcType=VARCHAR}, #{faqtitle,jdbcType=VARCHAR}, #{faqkeywords,jdbcType=VARCHAR}, 
+      #{faqclassifyid,jdbcType=VARCHAR}, #{collection,jdbcType=VARCHAR}, #{scan,jdbcType=VARCHAR}, 
+      #{modifytime,jdbcType=VARCHAR}, #{modifynumber,jdbcType=VARCHAR}, #{faqstate,jdbcType=INTEGER}, 
+      #{userid,jdbcType=VARCHAR}, #{faqdescription,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblFaqquestion" >
+    insert into tbl_faqquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="faqquestionid != null" >
+        FAQQUESTIONID,
+      </if>
+      <if test="faqtitle != null" >
+        FAQTITLE,
+      </if>
+      <if test="faqkeywords != null" >
+        FAQKEYWORDS,
+      </if>
+      <if test="faqclassifyid != null" >
+        FAQCLASSIFYID,
+      </if>
+      <if test="collection != null" >
+        COLLECTION,
+      </if>
+      <if test="scan != null" >
+        SCAN,
+      </if>
+      <if test="modifytime != null" >
+        MODIFYTIME,
+      </if>
+      <if test="modifynumber != null" >
+        MODIFYNUMBER,
+      </if>
+      <if test="faqstate != null" >
+        FAQSTATE,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="faqdescription != null" >
+        FAQDESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="faqquestionid != null" >
+        #{faqquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="faqtitle != null" >
+        #{faqtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="faqkeywords != null" >
+        #{faqkeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="faqclassifyid != null" >
+        #{faqclassifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="collection != null" >
+        #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="scan != null" >
+        #{scan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        #{modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifynumber != null" >
+        #{modifynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="faqstate != null" >
+        #{faqstate,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="faqdescription != null" >
+        #{faqdescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblFaqquestionExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_faqquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_faqquestion
+    <set >
+      <if test="record.faqquestionid != null" >
+        FAQQUESTIONID = #{record.faqquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faqtitle != null" >
+        FAQTITLE = #{record.faqtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faqkeywords != null" >
+        FAQKEYWORDS = #{record.faqkeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faqclassifyid != null" >
+        FAQCLASSIFYID = #{record.faqclassifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collection != null" >
+        COLLECTION = #{record.collection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scan != null" >
+        SCAN = #{record.scan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifytime != null" >
+        MODIFYTIME = #{record.modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifynumber != null" >
+        MODIFYNUMBER = #{record.modifynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faqstate != null" >
+        FAQSTATE = #{record.faqstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.faqdescription != null" >
+        FAQDESCRIPTION = #{record.faqdescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_faqquestion
+    set FAQQUESTIONID = #{record.faqquestionid,jdbcType=VARCHAR},
+      FAQTITLE = #{record.faqtitle,jdbcType=VARCHAR},
+      FAQKEYWORDS = #{record.faqkeywords,jdbcType=VARCHAR},
+      FAQCLASSIFYID = #{record.faqclassifyid,jdbcType=VARCHAR},
+      COLLECTION = #{record.collection,jdbcType=VARCHAR},
+      SCAN = #{record.scan,jdbcType=VARCHAR},
+      MODIFYTIME = #{record.modifytime,jdbcType=VARCHAR},
+      MODIFYNUMBER = #{record.modifynumber,jdbcType=VARCHAR},
+      FAQSTATE = #{record.faqstate,jdbcType=INTEGER},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      FAQDESCRIPTION = #{record.faqdescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_faqquestion
+    set FAQQUESTIONID = #{record.faqquestionid,jdbcType=VARCHAR},
+      FAQTITLE = #{record.faqtitle,jdbcType=VARCHAR},
+      FAQKEYWORDS = #{record.faqkeywords,jdbcType=VARCHAR},
+      FAQCLASSIFYID = #{record.faqclassifyid,jdbcType=VARCHAR},
+      COLLECTION = #{record.collection,jdbcType=VARCHAR},
+      SCAN = #{record.scan,jdbcType=VARCHAR},
+      MODIFYTIME = #{record.modifytime,jdbcType=VARCHAR},
+      MODIFYNUMBER = #{record.modifynumber,jdbcType=VARCHAR},
+      FAQSTATE = #{record.faqstate,jdbcType=INTEGER},
+      USERID = #{record.userid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblFaqquestion" >
+    update tbl_faqquestion
+    <set >
+      <if test="faqtitle != null" >
+        FAQTITLE = #{faqtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="faqkeywords != null" >
+        FAQKEYWORDS = #{faqkeywords,jdbcType=VARCHAR},
+      </if>
+      <if test="faqclassifyid != null" >
+        FAQCLASSIFYID = #{faqclassifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="collection != null" >
+        COLLECTION = #{collection,jdbcType=VARCHAR},
+      </if>
+      <if test="scan != null" >
+        SCAN = #{scan,jdbcType=VARCHAR},
+      </if>
+      <if test="modifytime != null" >
+        MODIFYTIME = #{modifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifynumber != null" >
+        MODIFYNUMBER = #{modifynumber,jdbcType=VARCHAR},
+      </if>
+      <if test="faqstate != null" >
+        FAQSTATE = #{faqstate,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="faqdescription != null" >
+        FAQDESCRIPTION = #{faqdescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where FAQQUESTIONID = #{faqquestionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.TblFaqquestion" >
+    update tbl_faqquestion
+    set FAQTITLE = #{faqtitle,jdbcType=VARCHAR},
+      FAQKEYWORDS = #{faqkeywords,jdbcType=VARCHAR},
+      FAQCLASSIFYID = #{faqclassifyid,jdbcType=VARCHAR},
+      COLLECTION = #{collection,jdbcType=VARCHAR},
+      SCAN = #{scan,jdbcType=VARCHAR},
+      MODIFYTIME = #{modifytime,jdbcType=VARCHAR},
+      MODIFYNUMBER = #{modifynumber,jdbcType=VARCHAR},
+      FAQSTATE = #{faqstate,jdbcType=INTEGER},
+      USERID = #{userid,jdbcType=VARCHAR},
+      FAQDESCRIPTION = #{faqdescription,jdbcType=LONGVARCHAR}
+    where FAQQUESTIONID = #{faqquestionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblFaqquestion" >
+    update tbl_faqquestion
+    set FAQTITLE = #{faqtitle,jdbcType=VARCHAR},
+      FAQKEYWORDS = #{faqkeywords,jdbcType=VARCHAR},
+      FAQCLASSIFYID = #{faqclassifyid,jdbcType=VARCHAR},
+      COLLECTION = #{collection,jdbcType=VARCHAR},
+      SCAN = #{scan,jdbcType=VARCHAR},
+      MODIFYTIME = #{modifytime,jdbcType=VARCHAR},
+      MODIFYNUMBER = #{modifynumber,jdbcType=VARCHAR},
+      FAQSTATE = #{faqstate,jdbcType=INTEGER},
+      USERID = #{userid,jdbcType=VARCHAR}
+    where FAQQUESTIONID = #{faqquestionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

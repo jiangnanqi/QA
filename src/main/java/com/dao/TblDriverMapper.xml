@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblDriverMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblDriver" >
+    <id column="CONFIGUREID" property="configureid" jdbcType="VARCHAR" />
+    <result column="OS" property="os" jdbcType="VARCHAR" />
+    <result column="DRIVERTYPE" property="drivertype" jdbcType="VARCHAR" />
+    <result column="FITNESS" property="fitness" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pojo.TblDriver" extends="BaseResultMap" >
+    <result column="DRIVERINTRODUCTION" property="driverintroduction" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONFIGUREID, OS, DRIVERTYPE, FITNESS
+  </sql>
+  <sql id="Blob_Column_List" >
+    DRIVERINTRODUCTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pojo.TblDriverExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_driver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblDriverExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_driver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_driver
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_driver
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblDriverExample" >
+    delete from tbl_driver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblDriver" >
+    insert into tbl_driver (CONFIGUREID, OS, DRIVERTYPE, 
+      FITNESS, DRIVERINTRODUCTION)
+    values (#{configureid,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{drivertype,jdbcType=VARCHAR}, 
+      #{fitness,jdbcType=VARCHAR}, #{driverintroduction,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblDriver" >
+    insert into tbl_driver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        CONFIGUREID,
+      </if>
+      <if test="os != null" >
+        OS,
+      </if>
+      <if test="drivertype != null" >
+        DRIVERTYPE,
+      </if>
+      <if test="fitness != null" >
+        FITNESS,
+      </if>
+      <if test="driverintroduction != null" >
+        DRIVERINTRODUCTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="drivertype != null" >
+        #{drivertype,jdbcType=VARCHAR},
+      </if>
+      <if test="fitness != null" >
+        #{fitness,jdbcType=VARCHAR},
+      </if>
+      <if test="driverintroduction != null" >
+        #{driverintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblDriverExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_driver
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_driver
+    <set >
+      <if test="record.configureid != null" >
+        CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.os != null" >
+        OS = #{record.os,jdbcType=VARCHAR},
+      </if>
+      <if test="record.drivertype != null" >
+        DRIVERTYPE = #{record.drivertype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fitness != null" >
+        FITNESS = #{record.fitness,jdbcType=VARCHAR},
+      </if>
+      <if test="record.driverintroduction != null" >
+        DRIVERINTRODUCTION = #{record.driverintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_driver
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      OS = #{record.os,jdbcType=VARCHAR},
+      DRIVERTYPE = #{record.drivertype,jdbcType=VARCHAR},
+      FITNESS = #{record.fitness,jdbcType=VARCHAR},
+      DRIVERINTRODUCTION = #{record.driverintroduction,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_driver
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      OS = #{record.os,jdbcType=VARCHAR},
+      DRIVERTYPE = #{record.drivertype,jdbcType=VARCHAR},
+      FITNESS = #{record.fitness,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblDriver" >
+    update tbl_driver
+    <set >
+      <if test="os != null" >
+        OS = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="drivertype != null" >
+        DRIVERTYPE = #{drivertype,jdbcType=VARCHAR},
+      </if>
+      <if test="fitness != null" >
+        FITNESS = #{fitness,jdbcType=VARCHAR},
+      </if>
+      <if test="driverintroduction != null" >
+        DRIVERINTRODUCTION = #{driverintroduction,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.TblDriver" >
+    update tbl_driver
+    set OS = #{os,jdbcType=VARCHAR},
+      DRIVERTYPE = #{drivertype,jdbcType=VARCHAR},
+      FITNESS = #{fitness,jdbcType=VARCHAR},
+      DRIVERINTRODUCTION = #{driverintroduction,jdbcType=LONGVARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblDriver" >
+    update tbl_driver
+    set OS = #{os,jdbcType=VARCHAR},
+      DRIVERTYPE = #{drivertype,jdbcType=VARCHAR},
+      FITNESS = #{fitness,jdbcType=VARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+</mapper>

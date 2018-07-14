@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblMessage" >
+    <id column="MESSAGEID" property="messageid" jdbcType="VARCHAR" />
+    <result column="MESSAGECONTENT" property="messagecontent" jdbcType="VARCHAR" />
+    <result column="MESSAGETIME" property="messagetime" jdbcType="VARCHAR" />
+    <result column="MESSAGESTATE" property="messagestate" jdbcType="INTEGER" />
+    <result column="POSTUSERID" property="postuserid" jdbcType="VARCHAR" />
+    <result column="GETUSERID" property="getuserid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MESSAGEID, MESSAGECONTENT, MESSAGETIME, MESSAGESTATE, POSTUSERID, GETUSERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_message
+    where MESSAGEID = #{messageid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_message
+    where MESSAGEID = #{messageid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblMessageExample" >
+    delete from tbl_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblMessage" >
+    insert into tbl_message (MESSAGEID, MESSAGECONTENT, MESSAGETIME, 
+      MESSAGESTATE, POSTUSERID, GETUSERID
+      )
+    values (#{messageid,jdbcType=VARCHAR}, #{messagecontent,jdbcType=VARCHAR}, #{messagetime,jdbcType=VARCHAR}, 
+      #{messagestate,jdbcType=INTEGER}, #{postuserid,jdbcType=VARCHAR}, #{getuserid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblMessage" >
+    insert into tbl_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        MESSAGEID,
+      </if>
+      <if test="messagecontent != null" >
+        MESSAGECONTENT,
+      </if>
+      <if test="messagetime != null" >
+        MESSAGETIME,
+      </if>
+      <if test="messagestate != null" >
+        MESSAGESTATE,
+      </if>
+      <if test="postuserid != null" >
+        POSTUSERID,
+      </if>
+      <if test="getuserid != null" >
+        GETUSERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageid != null" >
+        #{messageid,jdbcType=VARCHAR},
+      </if>
+      <if test="messagecontent != null" >
+        #{messagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetime != null" >
+        #{messagetime,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestate != null" >
+        #{messagestate,jdbcType=INTEGER},
+      </if>
+      <if test="postuserid != null" >
+        #{postuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="getuserid != null" >
+        #{getuserid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblMessageExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_message
+    <set >
+      <if test="record.messageid != null" >
+        MESSAGEID = #{record.messageid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagecontent != null" >
+        MESSAGECONTENT = #{record.messagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagetime != null" >
+        MESSAGETIME = #{record.messagetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messagestate != null" >
+        MESSAGESTATE = #{record.messagestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.postuserid != null" >
+        POSTUSERID = #{record.postuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.getuserid != null" >
+        GETUSERID = #{record.getuserid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_message
+    set MESSAGEID = #{record.messageid,jdbcType=VARCHAR},
+      MESSAGECONTENT = #{record.messagecontent,jdbcType=VARCHAR},
+      MESSAGETIME = #{record.messagetime,jdbcType=VARCHAR},
+      MESSAGESTATE = #{record.messagestate,jdbcType=INTEGER},
+      POSTUSERID = #{record.postuserid,jdbcType=VARCHAR},
+      GETUSERID = #{record.getuserid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblMessage" >
+    update tbl_message
+    <set >
+      <if test="messagecontent != null" >
+        MESSAGECONTENT = #{messagecontent,jdbcType=VARCHAR},
+      </if>
+      <if test="messagetime != null" >
+        MESSAGETIME = #{messagetime,jdbcType=VARCHAR},
+      </if>
+      <if test="messagestate != null" >
+        MESSAGESTATE = #{messagestate,jdbcType=INTEGER},
+      </if>
+      <if test="postuserid != null" >
+        POSTUSERID = #{postuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="getuserid != null" >
+        GETUSERID = #{getuserid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MESSAGEID = #{messageid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblMessage" >
+    update tbl_message
+    set MESSAGECONTENT = #{messagecontent,jdbcType=VARCHAR},
+      MESSAGETIME = #{messagetime,jdbcType=VARCHAR},
+      MESSAGESTATE = #{messagestate,jdbcType=INTEGER},
+      POSTUSERID = #{postuserid,jdbcType=VARCHAR},
+      GETUSERID = #{getuserid,jdbcType=VARCHAR}
+    where MESSAGEID = #{messageid,jdbcType=VARCHAR}
+  </update>
+</mapper>

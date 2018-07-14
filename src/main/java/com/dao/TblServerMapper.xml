@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblServerMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblServer" >
+    <id column="EQUIPMENTID" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osversion" jdbcType="VARCHAR" />
+    <result column="COMPUTERNAME" property="computername" jdbcType="VARCHAR" />
+    <result column="PCI" property="pci" jdbcType="VARCHAR" />
+    <result column="USB" property="usb" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="RAM_EXCHANGEAREAUSE" property="ramExchangeareause" jdbcType="VARCHAR" />
+    <result column="PARTATIONUSE" property="partationuse" jdbcType="VARCHAR" />
+    <result column="IDLERAM" property="idleram" jdbcType="VARCHAR" />
+    <result column="OS_TIME_USERNUM_LOAD" property="osTimeUsernumLoad" jdbcType="VARCHAR" />
+    <result column="OSLOAD" property="osload" jdbcType="VARCHAR" />
+    <result column="FIREWALL" property="firewall" jdbcType="VARCHAR" />
+    <result column="ROUTINGTABLE" property="routingtable" jdbcType="VARCHAR" />
+    <result column="HASCONTACT" property="hascontact" jdbcType="VARCHAR" />
+    <result column="NETWORK" property="network" jdbcType="VARCHAR" />
+    <result column="PROCESS" property="process" jdbcType="VARCHAR" />
+    <result column="REALTIMEPROCESS" property="realtimeprocess" jdbcType="VARCHAR" />
+    <result column="ACTIVEUSER" property="activeuser" jdbcType="VARCHAR" />
+    <result column="BIOS" property="bios" jdbcType="VARCHAR" />
+    <result column="NETWORKCARD" property="networkcard" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EQUIPMENTID, OSVERSION, COMPUTERNAME, PCI, USB, PATH, RAM_EXCHANGEAREAUSE, PARTATIONUSE, 
+    IDLERAM, OS_TIME_USERNUM_LOAD, OSLOAD, FIREWALL, ROUTINGTABLE, HASCONTACT, NETWORK, 
+    PROCESS, REALTIMEPROCESS, ACTIVEUSER, BIOS, NETWORKCARD
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblServerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_server
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_server
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_server
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblServerExample" >
+    delete from tbl_server
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblServer" >
+    insert into tbl_server (EQUIPMENTID, OSVERSION, COMPUTERNAME, 
+      PCI, USB, PATH, RAM_EXCHANGEAREAUSE, 
+      PARTATIONUSE, IDLERAM, OS_TIME_USERNUM_LOAD, 
+      OSLOAD, FIREWALL, ROUTINGTABLE, 
+      HASCONTACT, NETWORK, PROCESS, 
+      REALTIMEPROCESS, ACTIVEUSER, BIOS, 
+      NETWORKCARD)
+    values (#{equipmentid,jdbcType=VARCHAR}, #{osversion,jdbcType=VARCHAR}, #{computername,jdbcType=VARCHAR}, 
+      #{pci,jdbcType=VARCHAR}, #{usb,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{ramExchangeareause,jdbcType=VARCHAR}, 
+      #{partationuse,jdbcType=VARCHAR}, #{idleram,jdbcType=VARCHAR}, #{osTimeUsernumLoad,jdbcType=VARCHAR}, 
+      #{osload,jdbcType=VARCHAR}, #{firewall,jdbcType=VARCHAR}, #{routingtable,jdbcType=VARCHAR}, 
+      #{hascontact,jdbcType=VARCHAR}, #{network,jdbcType=VARCHAR}, #{process,jdbcType=VARCHAR}, 
+      #{realtimeprocess,jdbcType=VARCHAR}, #{activeuser,jdbcType=VARCHAR}, #{bios,jdbcType=VARCHAR}, 
+      #{networkcard,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblServer" >
+    insert into tbl_server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        EQUIPMENTID,
+      </if>
+      <if test="osversion != null" >
+        OSVERSION,
+      </if>
+      <if test="computername != null" >
+        COMPUTERNAME,
+      </if>
+      <if test="pci != null" >
+        PCI,
+      </if>
+      <if test="usb != null" >
+        USB,
+      </if>
+      <if test="path != null" >
+        PATH,
+      </if>
+      <if test="ramExchangeareause != null" >
+        RAM_EXCHANGEAREAUSE,
+      </if>
+      <if test="partationuse != null" >
+        PARTATIONUSE,
+      </if>
+      <if test="idleram != null" >
+        IDLERAM,
+      </if>
+      <if test="osTimeUsernumLoad != null" >
+        OS_TIME_USERNUM_LOAD,
+      </if>
+      <if test="osload != null" >
+        OSLOAD,
+      </if>
+      <if test="firewall != null" >
+        FIREWALL,
+      </if>
+      <if test="routingtable != null" >
+        ROUTINGTABLE,
+      </if>
+      <if test="hascontact != null" >
+        HASCONTACT,
+      </if>
+      <if test="network != null" >
+        NETWORK,
+      </if>
+      <if test="process != null" >
+        PROCESS,
+      </if>
+      <if test="realtimeprocess != null" >
+        REALTIMEPROCESS,
+      </if>
+      <if test="activeuser != null" >
+        ACTIVEUSER,
+      </if>
+      <if test="bios != null" >
+        BIOS,
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="osversion != null" >
+        #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="computername != null" >
+        #{computername,jdbcType=VARCHAR},
+      </if>
+      <if test="pci != null" >
+        #{pci,jdbcType=VARCHAR},
+      </if>
+      <if test="usb != null" >
+        #{usb,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="ramExchangeareause != null" >
+        #{ramExchangeareause,jdbcType=VARCHAR},
+      </if>
+      <if test="partationuse != null" >
+        #{partationuse,jdbcType=VARCHAR},
+      </if>
+      <if test="idleram != null" >
+        #{idleram,jdbcType=VARCHAR},
+      </if>
+      <if test="osTimeUsernumLoad != null" >
+        #{osTimeUsernumLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="osload != null" >
+        #{osload,jdbcType=VARCHAR},
+      </if>
+      <if test="firewall != null" >
+        #{firewall,jdbcType=VARCHAR},
+      </if>
+      <if test="routingtable != null" >
+        #{routingtable,jdbcType=VARCHAR},
+      </if>
+      <if test="hascontact != null" >
+        #{hascontact,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null" >
+        #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="realtimeprocess != null" >
+        #{realtimeprocess,jdbcType=VARCHAR},
+      </if>
+      <if test="activeuser != null" >
+        #{activeuser,jdbcType=VARCHAR},
+      </if>
+      <if test="bios != null" >
+        #{bios,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        #{networkcard,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblServerExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_server
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_server
+    <set >
+      <if test="record.equipmentid != null" >
+        EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osversion != null" >
+        OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.computername != null" >
+        COMPUTERNAME = #{record.computername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pci != null" >
+        PCI = #{record.pci,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usb != null" >
+        USB = #{record.usb,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        PATH = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ramExchangeareause != null" >
+        RAM_EXCHANGEAREAUSE = #{record.ramExchangeareause,jdbcType=VARCHAR},
+      </if>
+      <if test="record.partationuse != null" >
+        PARTATIONUSE = #{record.partationuse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idleram != null" >
+        IDLERAM = #{record.idleram,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osTimeUsernumLoad != null" >
+        OS_TIME_USERNUM_LOAD = #{record.osTimeUsernumLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osload != null" >
+        OSLOAD = #{record.osload,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firewall != null" >
+        FIREWALL = #{record.firewall,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routingtable != null" >
+        ROUTINGTABLE = #{record.routingtable,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hascontact != null" >
+        HASCONTACT = #{record.hascontact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.network != null" >
+        NETWORK = #{record.network,jdbcType=VARCHAR},
+      </if>
+      <if test="record.process != null" >
+        PROCESS = #{record.process,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realtimeprocess != null" >
+        REALTIMEPROCESS = #{record.realtimeprocess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeuser != null" >
+        ACTIVEUSER = #{record.activeuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bios != null" >
+        BIOS = #{record.bios,jdbcType=VARCHAR},
+      </if>
+      <if test="record.networkcard != null" >
+        NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_server
+    set EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      COMPUTERNAME = #{record.computername,jdbcType=VARCHAR},
+      PCI = #{record.pci,jdbcType=VARCHAR},
+      USB = #{record.usb,jdbcType=VARCHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      RAM_EXCHANGEAREAUSE = #{record.ramExchangeareause,jdbcType=VARCHAR},
+      PARTATIONUSE = #{record.partationuse,jdbcType=VARCHAR},
+      IDLERAM = #{record.idleram,jdbcType=VARCHAR},
+      OS_TIME_USERNUM_LOAD = #{record.osTimeUsernumLoad,jdbcType=VARCHAR},
+      OSLOAD = #{record.osload,jdbcType=VARCHAR},
+      FIREWALL = #{record.firewall,jdbcType=VARCHAR},
+      ROUTINGTABLE = #{record.routingtable,jdbcType=VARCHAR},
+      HASCONTACT = #{record.hascontact,jdbcType=VARCHAR},
+      NETWORK = #{record.network,jdbcType=VARCHAR},
+      PROCESS = #{record.process,jdbcType=VARCHAR},
+      REALTIMEPROCESS = #{record.realtimeprocess,jdbcType=VARCHAR},
+      ACTIVEUSER = #{record.activeuser,jdbcType=VARCHAR},
+      BIOS = #{record.bios,jdbcType=VARCHAR},
+      NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblServer" >
+    update tbl_server
+    <set >
+      <if test="osversion != null" >
+        OSVERSION = #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="computername != null" >
+        COMPUTERNAME = #{computername,jdbcType=VARCHAR},
+      </if>
+      <if test="pci != null" >
+        PCI = #{pci,jdbcType=VARCHAR},
+      </if>
+      <if test="usb != null" >
+        USB = #{usb,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="ramExchangeareause != null" >
+        RAM_EXCHANGEAREAUSE = #{ramExchangeareause,jdbcType=VARCHAR},
+      </if>
+      <if test="partationuse != null" >
+        PARTATIONUSE = #{partationuse,jdbcType=VARCHAR},
+      </if>
+      <if test="idleram != null" >
+        IDLERAM = #{idleram,jdbcType=VARCHAR},
+      </if>
+      <if test="osTimeUsernumLoad != null" >
+        OS_TIME_USERNUM_LOAD = #{osTimeUsernumLoad,jdbcType=VARCHAR},
+      </if>
+      <if test="osload != null" >
+        OSLOAD = #{osload,jdbcType=VARCHAR},
+      </if>
+      <if test="firewall != null" >
+        FIREWALL = #{firewall,jdbcType=VARCHAR},
+      </if>
+      <if test="routingtable != null" >
+        ROUTINGTABLE = #{routingtable,jdbcType=VARCHAR},
+      </if>
+      <if test="hascontact != null" >
+        HASCONTACT = #{hascontact,jdbcType=VARCHAR},
+      </if>
+      <if test="network != null" >
+        NETWORK = #{network,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null" >
+        PROCESS = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="realtimeprocess != null" >
+        REALTIMEPROCESS = #{realtimeprocess,jdbcType=VARCHAR},
+      </if>
+      <if test="activeuser != null" >
+        ACTIVEUSER = #{activeuser,jdbcType=VARCHAR},
+      </if>
+      <if test="bios != null" >
+        BIOS = #{bios,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD = #{networkcard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblServer" >
+    update tbl_server
+    set OSVERSION = #{osversion,jdbcType=VARCHAR},
+      COMPUTERNAME = #{computername,jdbcType=VARCHAR},
+      PCI = #{pci,jdbcType=VARCHAR},
+      USB = #{usb,jdbcType=VARCHAR},
+      PATH = #{path,jdbcType=VARCHAR},
+      RAM_EXCHANGEAREAUSE = #{ramExchangeareause,jdbcType=VARCHAR},
+      PARTATIONUSE = #{partationuse,jdbcType=VARCHAR},
+      IDLERAM = #{idleram,jdbcType=VARCHAR},
+      OS_TIME_USERNUM_LOAD = #{osTimeUsernumLoad,jdbcType=VARCHAR},
+      OSLOAD = #{osload,jdbcType=VARCHAR},
+      FIREWALL = #{firewall,jdbcType=VARCHAR},
+      ROUTINGTABLE = #{routingtable,jdbcType=VARCHAR},
+      HASCONTACT = #{hascontact,jdbcType=VARCHAR},
+      NETWORK = #{network,jdbcType=VARCHAR},
+      PROCESS = #{process,jdbcType=VARCHAR},
+      REALTIMEPROCESS = #{realtimeprocess,jdbcType=VARCHAR},
+      ACTIVEUSER = #{activeuser,jdbcType=VARCHAR},
+      BIOS = #{bios,jdbcType=VARCHAR},
+      NETWORKCARD = #{networkcard,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblCommunityquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblCommunityquestion" >
+    <id column="COMMUNITYQUESTIONID" property="communityquestionid" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+    <result column="TITLE" property="title" jdbcType="VARCHAR" />
+    <result column="CLASSIFYID" property="classifyid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="SCAN" property="scan" jdbcType="VARCHAR" />
+    <result column="QUESTIONSTATE" property="questionstate" jdbcType="INTEGER" />
+    <result column="ISANSWER" property="isanswer" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pojo.TblCommunityquestion" extends="BaseResultMap" >
+    <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    COMMUNITYQUESTIONID, TIME, TITLE, CLASSIFYID, USERID, SCAN, QUESTIONSTATE, ISANSWER
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pojo.TblCommunityquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_communityquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblCommunityquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_communityquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_communityquestion
+    where COMMUNITYQUESTIONID = #{communityquestionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_communityquestion
+    where COMMUNITYQUESTIONID = #{communityquestionid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblCommunityquestionExample" >
+    delete from tbl_communityquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblCommunityquestion" >
+    insert into tbl_communityquestion (COMMUNITYQUESTIONID, TIME, TITLE, 
+      CLASSIFYID, USERID, SCAN, 
+      QUESTIONSTATE, ISANSWER, CONTENT
+      )
+    values (#{communityquestionid,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{classifyid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{scan,jdbcType=VARCHAR}, 
+      #{questionstate,jdbcType=INTEGER}, #{isanswer,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblCommunityquestion" >
+    insert into tbl_communityquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="communityquestionid != null" >
+        COMMUNITYQUESTIONID,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+      <if test="title != null" >
+        TITLE,
+      </if>
+      <if test="classifyid != null" >
+        CLASSIFYID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="scan != null" >
+        SCAN,
+      </if>
+      <if test="questionstate != null" >
+        QUESTIONSTATE,
+      </if>
+      <if test="isanswer != null" >
+        ISANSWER,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="communityquestionid != null" >
+        #{communityquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyid != null" >
+        #{classifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="scan != null" >
+        #{scan,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstate != null" >
+        #{questionstate,jdbcType=INTEGER},
+      </if>
+      <if test="isanswer != null" >
+        #{isanswer,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblCommunityquestionExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_communityquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_communityquestion
+    <set >
+      <if test="record.communityquestionid != null" >
+        COMMUNITYQUESTIONID = #{record.communityquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        TITLE = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classifyid != null" >
+        CLASSIFYID = #{record.classifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scan != null" >
+        SCAN = #{record.scan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionstate != null" >
+        QUESTIONSTATE = #{record.questionstate,jdbcType=INTEGER},
+      </if>
+      <if test="record.isanswer != null" >
+        ISANSWER = #{record.isanswer,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_communityquestion
+    set COMMUNITYQUESTIONID = #{record.communityquestionid,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      CLASSIFYID = #{record.classifyid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      SCAN = #{record.scan,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{record.questionstate,jdbcType=INTEGER},
+      ISANSWER = #{record.isanswer,jdbcType=INTEGER},
+      CONTENT = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_communityquestion
+    set COMMUNITYQUESTIONID = #{record.communityquestionid,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=VARCHAR},
+      TITLE = #{record.title,jdbcType=VARCHAR},
+      CLASSIFYID = #{record.classifyid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      SCAN = #{record.scan,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{record.questionstate,jdbcType=INTEGER},
+      ISANSWER = #{record.isanswer,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblCommunityquestion" >
+    update tbl_communityquestion
+    <set >
+      <if test="time != null" >
+        TIME = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="classifyid != null" >
+        CLASSIFYID = #{classifyid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="scan != null" >
+        SCAN = #{scan,jdbcType=VARCHAR},
+      </if>
+      <if test="questionstate != null" >
+        QUESTIONSTATE = #{questionstate,jdbcType=INTEGER},
+      </if>
+      <if test="isanswer != null" >
+        ISANSWER = #{isanswer,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where COMMUNITYQUESTIONID = #{communityquestionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.TblCommunityquestion" >
+    update tbl_communityquestion
+    set TIME = #{time,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CLASSIFYID = #{classifyid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      SCAN = #{scan,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{questionstate,jdbcType=INTEGER},
+      ISANSWER = #{isanswer,jdbcType=INTEGER},
+      CONTENT = #{content,jdbcType=LONGVARCHAR}
+    where COMMUNITYQUESTIONID = #{communityquestionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblCommunityquestion" >
+    update tbl_communityquestion
+    set TIME = #{time,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      CLASSIFYID = #{classifyid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      SCAN = #{scan,jdbcType=VARCHAR},
+      QUESTIONSTATE = #{questionstate,jdbcType=INTEGER},
+      ISANSWER = #{isanswer,jdbcType=INTEGER}
+    where COMMUNITYQUESTIONID = #{communityquestionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblCurrentequipmentMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblCurrentequipment" >
+    <id column="EQUIPMENTID" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="MACADDRESS" property="macaddress" jdbcType="VARCHAR" />
+    <result column="EQUIPMENTMODEL" property="equipmentmodel" jdbcType="VARCHAR" />
+    <result column="EQUIPMENTTIME" property="equipmenttime" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="CPU" property="cpu" jdbcType="VARCHAR" />
+    <result column="RAM" property="ram" jdbcType="VARCHAR" />
+    <result column="HARDDRIVER" property="harddriver" jdbcType="VARCHAR" />
+    <result column="HARDDRIVERMODEL" property="harddrivermodel" jdbcType="VARCHAR" />
+    <result column="STORAGE" property="storage" jdbcType="VARCHAR" />
+    <result column="NETWORKCARD" property="networkcard" jdbcType="VARCHAR" />
+    <result column="MOTHERBOARD" property="motherboard" jdbcType="VARCHAR" />
+    <result column="OSNAME" property="osname" jdbcType="VARCHAR" />
+    <result column="OSTYPE" property="ostype" jdbcType="VARCHAR" />
+    <result column="OSVERSION" property="osversion" jdbcType="VARCHAR" />
+    <result column="OSID" property="osid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="ISNOTICE" property="isnotice" jdbcType="INTEGER" />
+    <result column="GRAPHICCARD" property="graphiccard" jdbcType="VARCHAR" />
+    <result column="AUDIOCARD" property="audiocard" jdbcType="VARCHAR" />
+    <result column="TIMEREMARKS" property="timeremarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EQUIPMENTID, MACADDRESS, EQUIPMENTMODEL, EQUIPMENTTIME, IP, CPU, RAM, HARDDRIVER, 
+    HARDDRIVERMODEL, STORAGE, NETWORKCARD, MOTHERBOARD, OSNAME, OSTYPE, OSVERSION, OSID, 
+    USERID, ISNOTICE, GRAPHICCARD, AUDIOCARD, TIMEREMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblCurrentequipmentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_currentequipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_currentequipment
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_currentequipment
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblCurrentequipmentExample" >
+    delete from tbl_currentequipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblCurrentequipment" >
+    insert into tbl_currentequipment (EQUIPMENTID, MACADDRESS, EQUIPMENTMODEL, 
+      EQUIPMENTTIME, IP, CPU, 
+      RAM, HARDDRIVER, HARDDRIVERMODEL, 
+      STORAGE, NETWORKCARD, MOTHERBOARD, 
+      OSNAME, OSTYPE, OSVERSION, 
+      OSID, USERID, ISNOTICE, 
+      GRAPHICCARD, AUDIOCARD, TIMEREMARKS
+      )
+    values (#{equipmentid,jdbcType=VARCHAR}, #{macaddress,jdbcType=VARCHAR}, #{equipmentmodel,jdbcType=VARCHAR}, 
+      #{equipmenttime,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{cpu,jdbcType=VARCHAR}, 
+      #{ram,jdbcType=VARCHAR}, #{harddriver,jdbcType=VARCHAR}, #{harddrivermodel,jdbcType=VARCHAR}, 
+      #{storage,jdbcType=VARCHAR}, #{networkcard,jdbcType=VARCHAR}, #{motherboard,jdbcType=VARCHAR}, 
+      #{osname,jdbcType=VARCHAR}, #{ostype,jdbcType=VARCHAR}, #{osversion,jdbcType=VARCHAR}, 
+      #{osid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{isnotice,jdbcType=INTEGER}, 
+      #{graphiccard,jdbcType=VARCHAR}, #{audiocard,jdbcType=VARCHAR}, #{timeremarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblCurrentequipment" >
+    insert into tbl_currentequipment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        EQUIPMENTID,
+      </if>
+      <if test="macaddress != null" >
+        MACADDRESS,
+      </if>
+      <if test="equipmentmodel != null" >
+        EQUIPMENTMODEL,
+      </if>
+      <if test="equipmenttime != null" >
+        EQUIPMENTTIME,
+      </if>
+      <if test="ip != null" >
+        IP,
+      </if>
+      <if test="cpu != null" >
+        CPU,
+      </if>
+      <if test="ram != null" >
+        RAM,
+      </if>
+      <if test="harddriver != null" >
+        HARDDRIVER,
+      </if>
+      <if test="harddrivermodel != null" >
+        HARDDRIVERMODEL,
+      </if>
+      <if test="storage != null" >
+        STORAGE,
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD,
+      </if>
+      <if test="motherboard != null" >
+        MOTHERBOARD,
+      </if>
+      <if test="osname != null" >
+        OSNAME,
+      </if>
+      <if test="ostype != null" >
+        OSTYPE,
+      </if>
+      <if test="osversion != null" >
+        OSVERSION,
+      </if>
+      <if test="osid != null" >
+        OSID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="isnotice != null" >
+        ISNOTICE,
+      </if>
+      <if test="graphiccard != null" >
+        GRAPHICCARD,
+      </if>
+      <if test="audiocard != null" >
+        AUDIOCARD,
+      </if>
+      <if test="timeremarks != null" >
+        TIMEREMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="macaddress != null" >
+        #{macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentmodel != null" >
+        #{equipmentmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmenttime != null" >
+        #{equipmenttime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="cpu != null" >
+        #{cpu,jdbcType=VARCHAR},
+      </if>
+      <if test="ram != null" >
+        #{ram,jdbcType=VARCHAR},
+      </if>
+      <if test="harddriver != null" >
+        #{harddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="harddrivermodel != null" >
+        #{harddrivermodel,jdbcType=VARCHAR},
+      </if>
+      <if test="storage != null" >
+        #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        #{networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboard != null" >
+        #{motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="ostype != null" >
+        #{ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="osversion != null" >
+        #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="osid != null" >
+        #{osid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotice != null" >
+        #{isnotice,jdbcType=INTEGER},
+      </if>
+      <if test="graphiccard != null" >
+        #{graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="audiocard != null" >
+        #{audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="timeremarks != null" >
+        #{timeremarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblCurrentequipmentExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_currentequipment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_currentequipment
+    <set >
+      <if test="record.equipmentid != null" >
+        EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.macaddress != null" >
+        MACADDRESS = #{record.macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentmodel != null" >
+        EQUIPMENTMODEL = #{record.equipmentmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmenttime != null" >
+        EQUIPMENTTIME = #{record.equipmenttime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        IP = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpu != null" >
+        CPU = #{record.cpu,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ram != null" >
+        RAM = #{record.ram,jdbcType=VARCHAR},
+      </if>
+      <if test="record.harddriver != null" >
+        HARDDRIVER = #{record.harddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.harddrivermodel != null" >
+        HARDDRIVERMODEL = #{record.harddrivermodel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storage != null" >
+        STORAGE = #{record.storage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.networkcard != null" >
+        NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motherboard != null" >
+        MOTHERBOARD = #{record.motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osname != null" >
+        OSNAME = #{record.osname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ostype != null" >
+        OSTYPE = #{record.ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osversion != null" >
+        OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osid != null" >
+        OSID = #{record.osid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isnotice != null" >
+        ISNOTICE = #{record.isnotice,jdbcType=INTEGER},
+      </if>
+      <if test="record.graphiccard != null" >
+        GRAPHICCARD = #{record.graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.audiocard != null" >
+        AUDIOCARD = #{record.audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.timeremarks != null" >
+        TIMEREMARKS = #{record.timeremarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_currentequipment
+    set EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      MACADDRESS = #{record.macaddress,jdbcType=VARCHAR},
+      EQUIPMENTMODEL = #{record.equipmentmodel,jdbcType=VARCHAR},
+      EQUIPMENTTIME = #{record.equipmenttime,jdbcType=VARCHAR},
+      IP = #{record.ip,jdbcType=VARCHAR},
+      CPU = #{record.cpu,jdbcType=VARCHAR},
+      RAM = #{record.ram,jdbcType=VARCHAR},
+      HARDDRIVER = #{record.harddriver,jdbcType=VARCHAR},
+      HARDDRIVERMODEL = #{record.harddrivermodel,jdbcType=VARCHAR},
+      STORAGE = #{record.storage,jdbcType=VARCHAR},
+      NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR},
+      MOTHERBOARD = #{record.motherboard,jdbcType=VARCHAR},
+      OSNAME = #{record.osname,jdbcType=VARCHAR},
+      OSTYPE = #{record.ostype,jdbcType=VARCHAR},
+      OSVERSION = #{record.osversion,jdbcType=VARCHAR},
+      OSID = #{record.osid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      ISNOTICE = #{record.isnotice,jdbcType=INTEGER},
+      GRAPHICCARD = #{record.graphiccard,jdbcType=VARCHAR},
+      AUDIOCARD = #{record.audiocard,jdbcType=VARCHAR},
+      TIMEREMARKS = #{record.timeremarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblCurrentequipment" >
+    update tbl_currentequipment
+    <set >
+      <if test="macaddress != null" >
+        MACADDRESS = #{macaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentmodel != null" >
+        EQUIPMENTMODEL = #{equipmentmodel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmenttime != null" >
+        EQUIPMENTTIME = #{equipmenttime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        IP = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="cpu != null" >
+        CPU = #{cpu,jdbcType=VARCHAR},
+      </if>
+      <if test="ram != null" >
+        RAM = #{ram,jdbcType=VARCHAR},
+      </if>
+      <if test="harddriver != null" >
+        HARDDRIVER = #{harddriver,jdbcType=VARCHAR},
+      </if>
+      <if test="harddrivermodel != null" >
+        HARDDRIVERMODEL = #{harddrivermodel,jdbcType=VARCHAR},
+      </if>
+      <if test="storage != null" >
+        STORAGE = #{storage,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD = #{networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboard != null" >
+        MOTHERBOARD = #{motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        OSNAME = #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="ostype != null" >
+        OSTYPE = #{ostype,jdbcType=VARCHAR},
+      </if>
+      <if test="osversion != null" >
+        OSVERSION = #{osversion,jdbcType=VARCHAR},
+      </if>
+      <if test="osid != null" >
+        OSID = #{osid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotice != null" >
+        ISNOTICE = #{isnotice,jdbcType=INTEGER},
+      </if>
+      <if test="graphiccard != null" >
+        GRAPHICCARD = #{graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="audiocard != null" >
+        AUDIOCARD = #{audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="timeremarks != null" >
+        TIMEREMARKS = #{timeremarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblCurrentequipment" >
+    update tbl_currentequipment
+    set MACADDRESS = #{macaddress,jdbcType=VARCHAR},
+      EQUIPMENTMODEL = #{equipmentmodel,jdbcType=VARCHAR},
+      EQUIPMENTTIME = #{equipmenttime,jdbcType=VARCHAR},
+      IP = #{ip,jdbcType=VARCHAR},
+      CPU = #{cpu,jdbcType=VARCHAR},
+      RAM = #{ram,jdbcType=VARCHAR},
+      HARDDRIVER = #{harddriver,jdbcType=VARCHAR},
+      HARDDRIVERMODEL = #{harddrivermodel,jdbcType=VARCHAR},
+      STORAGE = #{storage,jdbcType=VARCHAR},
+      NETWORKCARD = #{networkcard,jdbcType=VARCHAR},
+      MOTHERBOARD = #{motherboard,jdbcType=VARCHAR},
+      OSNAME = #{osname,jdbcType=VARCHAR},
+      OSTYPE = #{ostype,jdbcType=VARCHAR},
+      OSVERSION = #{osversion,jdbcType=VARCHAR},
+      OSID = #{osid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      ISNOTICE = #{isnotice,jdbcType=INTEGER},
+      GRAPHICCARD = #{graphiccard,jdbcType=VARCHAR},
+      AUDIOCARD = #{audiocard,jdbcType=VARCHAR},
+      TIMEREMARKS = #{timeremarks,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

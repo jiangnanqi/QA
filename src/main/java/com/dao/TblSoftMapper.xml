@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblSoftMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblSoft" >
+    <id column="CONFIGUREID" property="configureid" jdbcType="VARCHAR" />
+    <result column="SOFTID" property="softid" jdbcType="VARCHAR" />
+    <result column="SCORE" property="score" jdbcType="VARCHAR" />
+    <result column="LOGO" property="logo" jdbcType="VARCHAR" />
+    <result column="VERSIONTYPE" property="versiontype" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="SOFTTYPE" property="softtype" jdbcType="VARCHAR" />
+    <result column="SPAREURL" property="spareurl" jdbcType="VARCHAR" />
+    <result column="OS" property="os" jdbcType="VARCHAR" />
+    <result column="WEBSITE" property="website" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.pojo.TblSoftWithBLOBs" extends="BaseResultMap" >
+    <result column="INTRODUCTION" property="introduction" jdbcType="LONGVARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="LONGVARCHAR" />
+    <result column="NEWVERSIONINTRODUCTION" property="newversionintroduction" jdbcType="LONGVARCHAR" />
+    <result column="NEWVERSIONDESCRIPTION" property="newversiondescription" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CONFIGUREID, SOFTID, SCORE, LOGO, VERSIONTYPE, VERSION, SOFTTYPE, SPAREURL, OS, WEBSITE
+  </sql>
+  <sql id="Blob_Column_List" >
+    INTRODUCTION, DESCRIPTION, NEWVERSIONINTRODUCTION, NEWVERSIONDESCRIPTION
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.pojo.TblSoftExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_soft
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblSoftExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_soft
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tbl_soft
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_soft
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblSoftExample" >
+    delete from tbl_soft
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblSoftWithBLOBs" >
+    insert into tbl_soft (CONFIGUREID, SOFTID, SCORE, 
+      LOGO, VERSIONTYPE, VERSION, 
+      SOFTTYPE, SPAREURL, OS, 
+      WEBSITE, INTRODUCTION, DESCRIPTION, 
+      NEWVERSIONINTRODUCTION, NEWVERSIONDESCRIPTION
+      )
+    values (#{configureid,jdbcType=VARCHAR}, #{softid,jdbcType=VARCHAR}, #{score,jdbcType=VARCHAR}, 
+      #{logo,jdbcType=VARCHAR}, #{versiontype,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{softtype,jdbcType=VARCHAR}, #{spareurl,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, 
+      #{website,jdbcType=VARCHAR}, #{introduction,jdbcType=LONGVARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
+      #{newversionintroduction,jdbcType=LONGVARCHAR}, #{newversiondescription,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblSoftWithBLOBs" >
+    insert into tbl_soft
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        CONFIGUREID,
+      </if>
+      <if test="softid != null" >
+        SOFTID,
+      </if>
+      <if test="score != null" >
+        SCORE,
+      </if>
+      <if test="logo != null" >
+        LOGO,
+      </if>
+      <if test="versiontype != null" >
+        VERSIONTYPE,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="softtype != null" >
+        SOFTTYPE,
+      </if>
+      <if test="spareurl != null" >
+        SPAREURL,
+      </if>
+      <if test="os != null" >
+        OS,
+      </if>
+      <if test="website != null" >
+        WEBSITE,
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="newversionintroduction != null" >
+        NEWVERSIONINTRODUCTION,
+      </if>
+      <if test="newversiondescription != null" >
+        NEWVERSIONDESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="configureid != null" >
+        #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="softid != null" >
+        #{softid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="versiontype != null" >
+        #{versiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="softtype != null" >
+        #{softtype,jdbcType=VARCHAR},
+      </if>
+      <if test="spareurl != null" >
+        #{spareurl,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newversionintroduction != null" >
+        #{newversionintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newversiondescription != null" >
+        #{newversiondescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblSoftExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_soft
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_soft
+    <set >
+      <if test="record.configureid != null" >
+        CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softid != null" >
+        SOFTID = #{record.softid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        SCORE = #{record.score,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logo != null" >
+        LOGO = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versiontype != null" >
+        VERSIONTYPE = #{record.versiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.softtype != null" >
+        SOFTTYPE = #{record.softtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spareurl != null" >
+        SPAREURL = #{record.spareurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.os != null" >
+        OS = #{record.os,jdbcType=VARCHAR},
+      </if>
+      <if test="record.website != null" >
+        WEBSITE = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.introduction != null" >
+        INTRODUCTION = #{record.introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newversionintroduction != null" >
+        NEWVERSIONINTRODUCTION = #{record.newversionintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.newversiondescription != null" >
+        NEWVERSIONDESCRIPTION = #{record.newversiondescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update tbl_soft
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      SOFTID = #{record.softid,jdbcType=VARCHAR},
+      SCORE = #{record.score,jdbcType=VARCHAR},
+      LOGO = #{record.logo,jdbcType=VARCHAR},
+      VERSIONTYPE = #{record.versiontype,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      SOFTTYPE = #{record.softtype,jdbcType=VARCHAR},
+      SPAREURL = #{record.spareurl,jdbcType=VARCHAR},
+      OS = #{record.os,jdbcType=VARCHAR},
+      WEBSITE = #{record.website,jdbcType=VARCHAR},
+      INTRODUCTION = #{record.introduction,jdbcType=LONGVARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=LONGVARCHAR},
+      NEWVERSIONINTRODUCTION = #{record.newversionintroduction,jdbcType=LONGVARCHAR},
+      NEWVERSIONDESCRIPTION = #{record.newversiondescription,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_soft
+    set CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      SOFTID = #{record.softid,jdbcType=VARCHAR},
+      SCORE = #{record.score,jdbcType=VARCHAR},
+      LOGO = #{record.logo,jdbcType=VARCHAR},
+      VERSIONTYPE = #{record.versiontype,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      SOFTTYPE = #{record.softtype,jdbcType=VARCHAR},
+      SPAREURL = #{record.spareurl,jdbcType=VARCHAR},
+      OS = #{record.os,jdbcType=VARCHAR},
+      WEBSITE = #{record.website,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblSoftWithBLOBs" >
+    update tbl_soft
+    <set >
+      <if test="softid != null" >
+        SOFTID = #{softid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        SCORE = #{score,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        LOGO = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="versiontype != null" >
+        VERSIONTYPE = #{versiontype,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="softtype != null" >
+        SOFTTYPE = #{softtype,jdbcType=VARCHAR},
+      </if>
+      <if test="spareurl != null" >
+        SPAREURL = #{spareurl,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        OS = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="website != null" >
+        WEBSITE = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null" >
+        INTRODUCTION = #{introduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newversionintroduction != null" >
+        NEWVERSIONINTRODUCTION = #{newversionintroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newversiondescription != null" >
+        NEWVERSIONDESCRIPTION = #{newversiondescription,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pojo.TblSoftWithBLOBs" >
+    update tbl_soft
+    set SOFTID = #{softid,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      LOGO = #{logo,jdbcType=VARCHAR},
+      VERSIONTYPE = #{versiontype,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      SOFTTYPE = #{softtype,jdbcType=VARCHAR},
+      SPAREURL = #{spareurl,jdbcType=VARCHAR},
+      OS = #{os,jdbcType=VARCHAR},
+      WEBSITE = #{website,jdbcType=VARCHAR},
+      INTRODUCTION = #{introduction,jdbcType=LONGVARCHAR},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      NEWVERSIONINTRODUCTION = #{newversionintroduction,jdbcType=LONGVARCHAR},
+      NEWVERSIONDESCRIPTION = #{newversiondescription,jdbcType=LONGVARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblSoft" >
+    update tbl_soft
+    set SOFTID = #{softid,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=VARCHAR},
+      LOGO = #{logo,jdbcType=VARCHAR},
+      VERSIONTYPE = #{versiontype,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      SOFTTYPE = #{softtype,jdbcType=VARCHAR},
+      SPAREURL = #{spareurl,jdbcType=VARCHAR},
+      OS = #{os,jdbcType=VARCHAR},
+      WEBSITE = #{website,jdbcType=VARCHAR}
+    where CONFIGUREID = #{configureid,jdbcType=VARCHAR}
+  </update>
+</mapper>

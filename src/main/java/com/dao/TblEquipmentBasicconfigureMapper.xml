@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblEquipmentBasicconfigureMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblEquipmentBasicconfigure" >
+    <id column="EQUIPMENTBASICCONFIGUREID" property="equipmentbasicconfigureid" jdbcType="VARCHAR" />
+    <result column="EQUIPMENTID" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="BASICCONFIGUREID" property="basicconfigureid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EQUIPMENTBASICCONFIGUREID, EQUIPMENTID, BASICCONFIGUREID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblEquipmentBasicconfigureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_equipment_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_equipment_basicconfigure
+    where EQUIPMENTBASICCONFIGUREID = #{equipmentbasicconfigureid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_equipment_basicconfigure
+    where EQUIPMENTBASICCONFIGUREID = #{equipmentbasicconfigureid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblEquipmentBasicconfigureExample" >
+    delete from tbl_equipment_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblEquipmentBasicconfigure" >
+    insert into tbl_equipment_basicconfigure (EQUIPMENTBASICCONFIGUREID, EQUIPMENTID, 
+      BASICCONFIGUREID)
+    values (#{equipmentbasicconfigureid,jdbcType=VARCHAR}, #{equipmentid,jdbcType=VARCHAR}, 
+      #{basicconfigureid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblEquipmentBasicconfigure" >
+    insert into tbl_equipment_basicconfigure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentbasicconfigureid != null" >
+        EQUIPMENTBASICCONFIGUREID,
+      </if>
+      <if test="equipmentid != null" >
+        EQUIPMENTID,
+      </if>
+      <if test="basicconfigureid != null" >
+        BASICCONFIGUREID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentbasicconfigureid != null" >
+        #{equipmentbasicconfigureid,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="basicconfigureid != null" >
+        #{basicconfigureid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblEquipmentBasicconfigureExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_equipment_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_equipment_basicconfigure
+    <set >
+      <if test="record.equipmentbasicconfigureid != null" >
+        EQUIPMENTBASICCONFIGUREID = #{record.equipmentbasicconfigureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.equipmentid != null" >
+        EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.basicconfigureid != null" >
+        BASICCONFIGUREID = #{record.basicconfigureid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_equipment_basicconfigure
+    set EQUIPMENTBASICCONFIGUREID = #{record.equipmentbasicconfigureid,jdbcType=VARCHAR},
+      EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      BASICCONFIGUREID = #{record.basicconfigureid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblEquipmentBasicconfigure" >
+    update tbl_equipment_basicconfigure
+    <set >
+      <if test="equipmentid != null" >
+        EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="basicconfigureid != null" >
+        BASICCONFIGUREID = #{basicconfigureid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTBASICCONFIGUREID = #{equipmentbasicconfigureid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblEquipmentBasicconfigure" >
+    update tbl_equipment_basicconfigure
+    set EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR},
+      BASICCONFIGUREID = #{basicconfigureid,jdbcType=VARCHAR}
+    where EQUIPMENTBASICCONFIGUREID = #{equipmentbasicconfigureid,jdbcType=VARCHAR}
+  </update>
+</mapper>

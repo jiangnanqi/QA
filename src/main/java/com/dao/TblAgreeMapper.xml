@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblAgreeMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblAgree" >
+    <id column="AGREEID" property="agreeid" jdbcType="VARCHAR" />
+    <result column="COMMUNITYANSWERID" property="communityanswerid" jdbcType="VARCHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="TOUSERID" property="touserid" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+    <result column="ISNOTICE" property="isnotice" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    AGREEID, COMMUNITYANSWERID, USERID, TOUSERID, TIME, ISNOTICE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblAgreeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_agree
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_agree
+    where AGREEID = #{agreeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_agree
+    where AGREEID = #{agreeid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblAgreeExample" >
+    delete from tbl_agree
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblAgree" >
+    insert into tbl_agree (AGREEID, COMMUNITYANSWERID, USERID, 
+      TOUSERID, TIME, ISNOTICE
+      )
+    values (#{agreeid,jdbcType=VARCHAR}, #{communityanswerid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{touserid,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{isnotice,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblAgree" >
+    insert into tbl_agree
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="agreeid != null" >
+        AGREEID,
+      </if>
+      <if test="communityanswerid != null" >
+        COMMUNITYANSWERID,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+      <if test="touserid != null" >
+        TOUSERID,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+      <if test="isnotice != null" >
+        ISNOTICE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="agreeid != null" >
+        #{agreeid,jdbcType=VARCHAR},
+      </if>
+      <if test="communityanswerid != null" >
+        #{communityanswerid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="touserid != null" >
+        #{touserid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotice != null" >
+        #{isnotice,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblAgreeExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_agree
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_agree
+    <set >
+      <if test="record.agreeid != null" >
+        AGREEID = #{record.agreeid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communityanswerid != null" >
+        COMMUNITYANSWERID = #{record.communityanswerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.touserid != null" >
+        TOUSERID = #{record.touserid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isnotice != null" >
+        ISNOTICE = #{record.isnotice,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_agree
+    set AGREEID = #{record.agreeid,jdbcType=VARCHAR},
+      COMMUNITYANSWERID = #{record.communityanswerid,jdbcType=VARCHAR},
+      USERID = #{record.userid,jdbcType=VARCHAR},
+      TOUSERID = #{record.touserid,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=VARCHAR},
+      ISNOTICE = #{record.isnotice,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblAgree" >
+    update tbl_agree
+    <set >
+      <if test="communityanswerid != null" >
+        COMMUNITYANSWERID = #{communityanswerid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="touserid != null" >
+        TOUSERID = #{touserid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        TIME = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="isnotice != null" >
+        ISNOTICE = #{isnotice,jdbcType=INTEGER},
+      </if>
+    </set>
+    where AGREEID = #{agreeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblAgree" >
+    update tbl_agree
+    set COMMUNITYANSWERID = #{communityanswerid,jdbcType=VARCHAR},
+      USERID = #{userid,jdbcType=VARCHAR},
+      TOUSERID = #{touserid,jdbcType=VARCHAR},
+      TIME = #{time,jdbcType=VARCHAR},
+      ISNOTICE = #{isnotice,jdbcType=INTEGER}
+    where AGREEID = #{agreeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblComputerMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblComputer" >
+    <id column="EQUIPMENTID" property="equipmentid" jdbcType="VARCHAR" />
+    <result column="GRAPHICCARD" property="graphiccard" jdbcType="VARCHAR" />
+    <result column="AUDIOCARD" property="audiocard" jdbcType="VARCHAR" />
+    <result column="NETWORKCARD" property="networkcard" jdbcType="VARCHAR" />
+    <result column="MOTHERBOARD" property="motherboard" jdbcType="VARCHAR" />
+    <result column="OSNAME" property="osname" jdbcType="VARCHAR" />
+    <result column="OSID" property="osid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    EQUIPMENTID, GRAPHICCARD, AUDIOCARD, NETWORKCARD, MOTHERBOARD, OSNAME, OSID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblComputerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_computer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_computer
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_computer
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblComputerExample" >
+    delete from tbl_computer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblComputer" >
+    insert into tbl_computer (EQUIPMENTID, GRAPHICCARD, AUDIOCARD, 
+      NETWORKCARD, MOTHERBOARD, OSNAME, 
+      OSID)
+    values (#{equipmentid,jdbcType=VARCHAR}, #{graphiccard,jdbcType=VARCHAR}, #{audiocard,jdbcType=VARCHAR}, 
+      #{networkcard,jdbcType=VARCHAR}, #{motherboard,jdbcType=VARCHAR}, #{osname,jdbcType=VARCHAR}, 
+      #{osid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblComputer" >
+    insert into tbl_computer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        EQUIPMENTID,
+      </if>
+      <if test="graphiccard != null" >
+        GRAPHICCARD,
+      </if>
+      <if test="audiocard != null" >
+        AUDIOCARD,
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD,
+      </if>
+      <if test="motherboard != null" >
+        MOTHERBOARD,
+      </if>
+      <if test="osname != null" >
+        OSNAME,
+      </if>
+      <if test="osid != null" >
+        OSID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="equipmentid != null" >
+        #{equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="graphiccard != null" >
+        #{graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="audiocard != null" >
+        #{audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        #{networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboard != null" >
+        #{motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="osid != null" >
+        #{osid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblComputerExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_computer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_computer
+    <set >
+      <if test="record.equipmentid != null" >
+        EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.graphiccard != null" >
+        GRAPHICCARD = #{record.graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.audiocard != null" >
+        AUDIOCARD = #{record.audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.networkcard != null" >
+        NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.motherboard != null" >
+        MOTHERBOARD = #{record.motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osname != null" >
+        OSNAME = #{record.osname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.osid != null" >
+        OSID = #{record.osid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_computer
+    set EQUIPMENTID = #{record.equipmentid,jdbcType=VARCHAR},
+      GRAPHICCARD = #{record.graphiccard,jdbcType=VARCHAR},
+      AUDIOCARD = #{record.audiocard,jdbcType=VARCHAR},
+      NETWORKCARD = #{record.networkcard,jdbcType=VARCHAR},
+      MOTHERBOARD = #{record.motherboard,jdbcType=VARCHAR},
+      OSNAME = #{record.osname,jdbcType=VARCHAR},
+      OSID = #{record.osid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblComputer" >
+    update tbl_computer
+    <set >
+      <if test="graphiccard != null" >
+        GRAPHICCARD = #{graphiccard,jdbcType=VARCHAR},
+      </if>
+      <if test="audiocard != null" >
+        AUDIOCARD = #{audiocard,jdbcType=VARCHAR},
+      </if>
+      <if test="networkcard != null" >
+        NETWORKCARD = #{networkcard,jdbcType=VARCHAR},
+      </if>
+      <if test="motherboard != null" >
+        MOTHERBOARD = #{motherboard,jdbcType=VARCHAR},
+      </if>
+      <if test="osname != null" >
+        OSNAME = #{osname,jdbcType=VARCHAR},
+      </if>
+      <if test="osid != null" >
+        OSID = #{osid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblComputer" >
+    update tbl_computer
+    set GRAPHICCARD = #{graphiccard,jdbcType=VARCHAR},
+      AUDIOCARD = #{audiocard,jdbcType=VARCHAR},
+      NETWORKCARD = #{networkcard,jdbcType=VARCHAR},
+      MOTHERBOARD = #{motherboard,jdbcType=VARCHAR},
+      OSNAME = #{osname,jdbcType=VARCHAR},
+      OSID = #{osid,jdbcType=VARCHAR}
+    where EQUIPMENTID = #{equipmentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

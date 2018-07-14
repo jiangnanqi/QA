@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblUserquestionMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblUserquestion" >
+    <id column="USERQUESTIONID" property="userquestionid" jdbcType="VARCHAR" />
+    <result column="QUESTIONTITLE" property="questiontitle" jdbcType="VARCHAR" />
+    <result column="QUESTIONTIME" property="questiontime" jdbcType="VARCHAR" />
+    <result column="ISFAQ" property="isfaq" jdbcType="INTEGER" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USERQUESTIONID, QUESTIONTITLE, QUESTIONTIME, ISFAQ, USERID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblUserquestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_userquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_userquestion
+    where USERQUESTIONID = #{userquestionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_userquestion
+    where USERQUESTIONID = #{userquestionid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblUserquestionExample" >
+    delete from tbl_userquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblUserquestion" >
+    insert into tbl_userquestion (USERQUESTIONID, QUESTIONTITLE, QUESTIONTIME, 
+      ISFAQ, USERID)
+    values (#{userquestionid,jdbcType=VARCHAR}, #{questiontitle,jdbcType=VARCHAR}, #{questiontime,jdbcType=VARCHAR}, 
+      #{isfaq,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblUserquestion" >
+    insert into tbl_userquestion
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userquestionid != null" >
+        USERQUESTIONID,
+      </if>
+      <if test="questiontitle != null" >
+        QUESTIONTITLE,
+      </if>
+      <if test="questiontime != null" >
+        QUESTIONTIME,
+      </if>
+      <if test="isfaq != null" >
+        ISFAQ,
+      </if>
+      <if test="userid != null" >
+        USERID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userquestionid != null" >
+        #{userquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontitle != null" >
+        #{questiontitle,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontime != null" >
+        #{questiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="isfaq != null" >
+        #{isfaq,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblUserquestionExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_userquestion
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_userquestion
+    <set >
+      <if test="record.userquestionid != null" >
+        USERQUESTIONID = #{record.userquestionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questiontitle != null" >
+        QUESTIONTITLE = #{record.questiontitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questiontime != null" >
+        QUESTIONTIME = #{record.questiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isfaq != null" >
+        ISFAQ = #{record.isfaq,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        USERID = #{record.userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_userquestion
+    set USERQUESTIONID = #{record.userquestionid,jdbcType=VARCHAR},
+      QUESTIONTITLE = #{record.questiontitle,jdbcType=VARCHAR},
+      QUESTIONTIME = #{record.questiontime,jdbcType=VARCHAR},
+      ISFAQ = #{record.isfaq,jdbcType=INTEGER},
+      USERID = #{record.userid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblUserquestion" >
+    update tbl_userquestion
+    <set >
+      <if test="questiontitle != null" >
+        QUESTIONTITLE = #{questiontitle,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontime != null" >
+        QUESTIONTIME = #{questiontime,jdbcType=VARCHAR},
+      </if>
+      <if test="isfaq != null" >
+        ISFAQ = #{isfaq,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        USERID = #{userid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USERQUESTIONID = #{userquestionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblUserquestion" >
+    update tbl_userquestion
+    set QUESTIONTITLE = #{questiontitle,jdbcType=VARCHAR},
+      QUESTIONTIME = #{questiontime,jdbcType=VARCHAR},
+      ISFAQ = #{isfaq,jdbcType=INTEGER},
+      USERID = #{userid,jdbcType=VARCHAR}
+    where USERQUESTIONID = #{userquestionid,jdbcType=VARCHAR}
+  </update>
+</mapper>

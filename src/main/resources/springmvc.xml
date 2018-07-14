@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+					    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+					    http://www.springframework.org/schema/context
+					    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+					   http://www.springframework.org/schema/mvc
+					   http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- 开启注解扫描 -->
+	<context:component-scan base-package="com" />
+
+	<!-- 三大组件 -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" /> -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" /> -->
+	<!--需要实现 Converter<String, Date>接口
+	 <bean name="conversionServiceFactoryBean" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.com.conversion.DateConversion"></bean>
+			</list>
+		</property>
+	</bean> -->
+
+	<mvc:annotation-driven  />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 异常处理 自定义 继承HandlerExceptionResolver  异常处理需要手写 -->
+	<!-- <bean class="com.com.exception.CustomExceptionResolver" /> -->
+
+	<!-- 上传图片  name必须有而且只能是multipartResolver -->
+	<!--<bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+		<!--<property name="defaultEncoding" value="utf-8" />-->
+		<!--<property name="maxUploadSize" value="10485760000" />-->
+		<!--<property name="maxInMemorySize" value="40960" />-->
+	<!--</bean>-->
+
+	<!-- 资源放行 -->
+	<!--<mvc:resources location="/js/" mapping="/js/**" />-->
+
+	<!-- For static resources -->
+	<mvc:resources location="/" mapping="/**/*.html"/>
+	<mvc:resources location="/" mapping="/**/*.js"/>
+	<mvc:resources location="/" mapping="/**/*.css"/>
+	<mvc:resources location="/" mapping="/**/*.png"/>
+	<mvc:resources location="/" mapping="/**/*.gif"/>
+
+
+
+
+	<!-- 拦截器 需要收编写interceptor 继承HandlerInterceptor-->
+	<!-- <mvc:interceptors>
+		<mvc:com.interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.com.interceptor.Interceptor1" />
+		</mvc:com.interceptor>
+	</mvc:interceptors> -->
+	
+</beans>

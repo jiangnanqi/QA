@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblBasicconfigureMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblBasicconfigure" >
+    <id column="BASICCONFIGURE" property="basicconfigure" jdbcType="VARCHAR" />
+    <result column="CONFIGUREID" property="configureid" jdbcType="VARCHAR" />
+    <result column="DEPARTMENTID" property="departmentid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BASICCONFIGURE, CONFIGUREID, DEPARTMENTID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblBasicconfigureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_basicconfigure
+    where BASICCONFIGURE = #{basicconfigure,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_basicconfigure
+    where BASICCONFIGURE = #{basicconfigure,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblBasicconfigureExample" >
+    delete from tbl_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblBasicconfigure" >
+    insert into tbl_basicconfigure (BASICCONFIGURE, CONFIGUREID, DEPARTMENTID
+      )
+    values (#{basicconfigure,jdbcType=VARCHAR}, #{configureid,jdbcType=VARCHAR}, #{departmentid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblBasicconfigure" >
+    insert into tbl_basicconfigure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="basicconfigure != null" >
+        BASICCONFIGURE,
+      </if>
+      <if test="configureid != null" >
+        CONFIGUREID,
+      </if>
+      <if test="departmentid != null" >
+        DEPARTMENTID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="basicconfigure != null" >
+        #{basicconfigure,jdbcType=VARCHAR},
+      </if>
+      <if test="configureid != null" >
+        #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentid != null" >
+        #{departmentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblBasicconfigureExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_basicconfigure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_basicconfigure
+    <set >
+      <if test="record.basicconfigure != null" >
+        BASICCONFIGURE = #{record.basicconfigure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.configureid != null" >
+        CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.departmentid != null" >
+        DEPARTMENTID = #{record.departmentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_basicconfigure
+    set BASICCONFIGURE = #{record.basicconfigure,jdbcType=VARCHAR},
+      CONFIGUREID = #{record.configureid,jdbcType=VARCHAR},
+      DEPARTMENTID = #{record.departmentid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblBasicconfigure" >
+    update tbl_basicconfigure
+    <set >
+      <if test="configureid != null" >
+        CONFIGUREID = #{configureid,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentid != null" >
+        DEPARTMENTID = #{departmentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BASICCONFIGURE = #{basicconfigure,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblBasicconfigure" >
+    update tbl_basicconfigure
+    set CONFIGUREID = #{configureid,jdbcType=VARCHAR},
+      DEPARTMENTID = #{departmentid,jdbcType=VARCHAR}
+    where BASICCONFIGURE = #{basicconfigure,jdbcType=VARCHAR}
+  </update>
+</mapper>

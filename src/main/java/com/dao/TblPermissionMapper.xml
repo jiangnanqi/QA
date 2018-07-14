@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.TblPermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.pojo.TblPermission" >
+    <id column="PERMISSIONID" property="permissionid" jdbcType="VARCHAR" />
+    <result column="PERMISSIONPHYSICALNAME" property="permissionphysicalname" jdbcType="VARCHAR" />
+    <result column="PERMISSIONLOGICNAME" property="permissionlogicname" jdbcType="VARCHAR" />
+    <result column="TIME" property="time" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PERMISSIONID, PERMISSIONPHYSICALNAME, PERMISSIONLOGICNAME, TIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pojo.TblPermissionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tbl_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_permission
+    where PERMISSIONID = #{permissionid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tbl_permission
+    where PERMISSIONID = #{permissionid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.TblPermissionExample" >
+    delete from tbl_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.TblPermission" >
+    insert into tbl_permission (PERMISSIONID, PERMISSIONPHYSICALNAME, 
+      PERMISSIONLOGICNAME, TIME)
+    values (#{permissionid,jdbcType=VARCHAR}, #{permissionphysicalname,jdbcType=VARCHAR}, 
+      #{permissionlogicname,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.TblPermission" >
+    insert into tbl_permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        PERMISSIONID,
+      </if>
+      <if test="permissionphysicalname != null" >
+        PERMISSIONPHYSICALNAME,
+      </if>
+      <if test="permissionlogicname != null" >
+        PERMISSIONLOGICNAME,
+      </if>
+      <if test="time != null" >
+        TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="permissionid != null" >
+        #{permissionid,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionphysicalname != null" >
+        #{permissionphysicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionlogicname != null" >
+        #{permissionlogicname,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.TblPermissionExample" resultType="java.lang.Integer" >
+    select count(*) from tbl_permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tbl_permission
+    <set >
+      <if test="record.permissionid != null" >
+        PERMISSIONID = #{record.permissionid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionphysicalname != null" >
+        PERMISSIONPHYSICALNAME = #{record.permissionphysicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionlogicname != null" >
+        PERMISSIONLOGICNAME = #{record.permissionlogicname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null" >
+        TIME = #{record.time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tbl_permission
+    set PERMISSIONID = #{record.permissionid,jdbcType=VARCHAR},
+      PERMISSIONPHYSICALNAME = #{record.permissionphysicalname,jdbcType=VARCHAR},
+      PERMISSIONLOGICNAME = #{record.permissionlogicname,jdbcType=VARCHAR},
+      TIME = #{record.time,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.TblPermission" >
+    update tbl_permission
+    <set >
+      <if test="permissionphysicalname != null" >
+        PERMISSIONPHYSICALNAME = #{permissionphysicalname,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionlogicname != null" >
+        PERMISSIONLOGICNAME = #{permissionlogicname,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        TIME = #{time,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PERMISSIONID = #{permissionid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.TblPermission" >
+    update tbl_permission
+    set PERMISSIONPHYSICALNAME = #{permissionphysicalname,jdbcType=VARCHAR},
+      PERMISSIONLOGICNAME = #{permissionlogicname,jdbcType=VARCHAR},
+      TIME = #{time,jdbcType=VARCHAR}
+    where PERMISSIONID = #{permissionid,jdbcType=VARCHAR}
+  </update>
+</mapper>
