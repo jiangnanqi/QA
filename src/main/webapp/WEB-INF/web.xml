@@ -7,11 +7,6 @@
   <display-name>template</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
 
   <filter>
@@ -47,7 +42,8 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>springmvc</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/</url-pattern>
+    <!--/*匹配jsp /不匹配jsp-->
   </servlet-mapping>
 
   <servlet>
@@ -58,4 +54,17 @@
     <servlet-name>DrUidStatView</servlet-name>
     <url-pattern>/druid/*</url-pattern>
   </servlet-mapping>
+
+
+  <jsp-config>
+    <jsp-property-group>
+      <description>html encoding</description>
+      <display-name>JSPConfiguration</display-name>
+      <url-pattern>*.html</url-pattern>
+      <el-ignored>true</el-ignored>
+      <page-encoding>UTF-8</page-encoding>
+      <scripting-invalid>false</scripting-invalid>
+    </jsp-property-group>
+  </jsp-config>
+
 </web-app>

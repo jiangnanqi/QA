@@ -5,11 +5,7 @@ import com.pojo.TblUser;
 import com.pojo.TblUserExample;
 import com.service.UserService;
 import com.utils.MD5;
-import org.junit.runner.RunWith;
 import org.springframework.stereotype.Controller;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,8 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Controller
@@ -42,7 +36,7 @@ public class User {
 
         List<TblUser> users = userService.findUser(userExample);
 
-        return "index";
+        return "log/log";
 
 
     }
