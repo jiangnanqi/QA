@@ -1,4 +1,5 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,14 +33,8 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                Tables Page
+                用户列表
             </h1>
-            <ol class="breadcrumb">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Tables</a></li>
-                <li class="active">Data</li>
-            </ol>
-
         </div>
 
         <div id="page-inner">
@@ -72,43 +67,37 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>头像</th>
+                                                <th>用户名</th>
+                                                <th>邮箱</th>
+                                                <th>性别</th>
+                                                <th>生日</th>
+                                                <th>地址</th>
+                                                <th>签名</th>
+                                                <th>注册时间</th>
+                                                <th>角色名称</th>
+                                                <th>操作</th>
+                                                <th>审核</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach var="pend" items="${pendingAuditUser}">
+                                                <tr class="odd gradeX">
+                                                        <%--<td><input type="checkbox" /></td>--%>
+                                                            <th><img src="${pend.AVATAR}" style="width: 50px;height: 50px"></th>
+                                                            <th>${pend.USERNAME}</th>
+                                                            <th>${pend.USEREMAIL}</th>
+                                                            <th>${pend.GENDER}</th>
+                                                            <th>${pend.USERBIRTHDAY}</th>
+                                                            <th>${pend.USERADDRESS}</th>
+                                                            <th>${pend.USERSIGNATURE}</th>
+                                                            <th>${pend.CREATETIME}</th>
+                                                            <th>${pend.ROLENAME}</th>
+                                                            <th><button>i</button></th>
+                                                            <th><button>c</button></th>
+                                                </tr>
+                                            </c:forEach>
 
-                                            <tr class="gradeX">
-                                                <td>M</td>
-                                                <td>Lynx</td>
-                                                <td>Text only</td>
-                                                <td class="center">-</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>IE Mobile</td>
-                                                <td>Windows Mobile 6</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeU">
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td class="center">-</td>
-                                                <td class="center">U</td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -135,43 +124,37 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>头像</th>
+                                                <th>用户名</th>
+                                                <th>邮箱</th>
+                                                <th>性别</th>
+                                                <th>生日</th>
+                                                <th>地址</th>
+                                                <th>签名</th>
+                                                <th>注册时间</th>
+                                                <th>角色名称</th>
+                                                <th>操作</th>
+                                                <th>审核</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach var="pub" items="${publicUser}">
+                                                <tr class="odd gradeX">
+                                                        <%--<td><input type="checkbox" /></td>--%>
+                                                    <th><img src="${pub.AVATAR}" style="width: 50px;height: 50px"></th>
+                                                    <th>${pub.USERNAME}</th>
+                                                    <th>${pub.USEREMAIL}</th>
+                                                    <th>${pub.GENDER}</th>
+                                                    <th>${pub.USERBIRTHDAY}</th>
+                                                    <th>${pub.USERADDRESS}</th>
+                                                    <th>${pub.USERSIGNATURE}</th>
+                                                    <th>${pub.CREATETIME}</th>
+                                                    <th>${pub.ROLENAME}</th>
+                                                    <th><button>i</button></th>
+                                                    <th><button>c</button></th>
+                                                </tr>
+                                            </c:forEach>
 
-                                            <tr class="gradeX">
-                                                <td>i</td>
-                                                <td>Lynx</td>
-                                                <td>Text only</td>
-                                                <td class="center">-</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>IE Mobile</td>
-                                                <td>Windows Mobile 6</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeU">
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td class="center">-</td>
-                                                <td class="center">U</td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -198,43 +181,37 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>头像</th>
+                                                <th>用户名</th>
+                                                <th>邮箱</th>
+                                                <th>性别</th>
+                                                <th>生日</th>
+                                                <th>地址</th>
+                                                <th>签名</th>
+                                                <th>注册时间</th>
+                                                <th>角色名称</th>
+                                                <th>操作</th>
+                                                <th>审核</th>
                                             </tr>
                                             </thead>
                                             <tbody>
+                                            <c:forEach var="it" items="${ITUser}">
+                                                <tr class="odd gradeX">
+                                                        <%--<td><input type="checkbox" /></td>--%>
+                                                    <th><img src="${it.AVATAR}" style="width: 50px;height: 50px"></th>
+                                                    <th>${it.USERNAME}</th>
+                                                    <th>${it.USEREMAIL}</th>
+                                                    <th>${it.GENDER}</th>
+                                                    <th>${it.USERBIRTHDAY}</th>
+                                                    <th>${it.USERADDRESS}</th>
+                                                    <th>${it.USERSIGNATURE}</th>
+                                                    <th>${it.CREATETIME}</th>
+                                                    <th>${it.ROLENAME}</th>
+                                                    <th><button>i</button></th>
+                                                    <th><button>c</button></th>
+                                                </tr>
+                                            </c:forEach>
 
-                                            <tr class="gradeX">
-                                                <td>s</td>
-                                                <td>Lynx</td>
-                                                <td>Text only</td>
-                                                <td class="center">-</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>IE Mobile</td>
-                                                <td>Windows Mobile 6</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeU">
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td class="center">-</td>
-                                                <td class="center">U</td>
-                                            </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -261,43 +238,36 @@
                                         <table class="table table-striped table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Rendering engine</th>
-                                                <th>Browser</th>
-                                                <th>Platform(s)</th>
-                                                <th>Engine version</th>
-                                                <th>CSS grade</th>
+                                                <th>头像</th>
+                                                <th>用户名</th>
+                                                <th>邮箱</th>
+                                                <th>性别</th>
+                                                <th>生日</th>
+                                                <th>地址</th>
+                                                <th>签名</th>
+                                                <th>注册时间</th>
+                                                <th>角色名称</th>
+                                                <th>操作</th>
+                                                <th>审核</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-
-                                            <tr class="gradeX">
-                                                <td>c</td>
-                                                <td>Lynx</td>
-                                                <td>Text only</td>
-                                                <td class="center">-</td>
-                                                <td class="center">X</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>IE Mobile</td>
-                                                <td>Windows Mobile 6</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeC">
-                                                <td>Misc</td>
-                                                <td>PSP browser</td>
-                                                <td>PSP</td>
-                                                <td class="center">-</td>
-                                                <td class="center">C</td>
-                                            </tr>
-                                            <tr class="gradeU">
-                                                <td>Other browsers</td>
-                                                <td>All others</td>
-                                                <td>-</td>
-                                                <td class="center">-</td>
-                                                <td class="center">U</td>
-                                            </tr>
+                                            <c:forEach var="admin" items="${adminUser}">
+                                                <tr class="odd gradeX">
+                                                        <%--<td><input type="checkbox" /></td>--%>
+                                                    <th><img src="${admin.AVATAR}" style="width: 50px;height: 50px"></th>
+                                                    <th>${admin.USERNAME}</th>
+                                                    <th>${admin.USEREMAIL}</th>
+                                                    <th>${admin.GENDER}</th>
+                                                    <th>${admin.USERBIRTHDAY}</th>
+                                                    <th>${admin.USERADDRESS}</th>
+                                                    <th>${admin.USERSIGNATURE}</th>
+                                                    <th>${admin.CREATETIME}</th>
+                                                    <th>${admin.ROLENAME}</th>
+                                                    <th><button>i</button></th>
+                                                    <th><button>c</button></th>
+                                                </tr>
+                                            </c:forEach>
                                             </tbody>
                                         </table>
                                     </div>

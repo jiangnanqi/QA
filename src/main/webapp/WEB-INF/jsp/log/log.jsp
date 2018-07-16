@@ -48,7 +48,7 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox"></th>
+                                        <%--<th><input type="checkbox"></th>--%>
                                         <th>用户</th>
                                         <th>操作</th>
                                         <th>操作时间</th>
@@ -58,11 +58,11 @@
                                     <tbody>
                                     <c:forEach var="log" items="${loglist}">
                                         <tr class="odd gradeX">
-                                            <td><input type="checkbox" /></td>
+                                            <%--<td><input type="checkbox" /></td>--%>
                                             <td>${log.logUser}</td>
                                             <td>${log.logMethod}</td>
                                             <td>${log.logTime}</td>
-                                            <td class="center"><a onclick="deletelog('${log.logId}')">删除</a></td>
+                                            <td class="center"><button onclick="deletelog('${log.logId}')">删除</button></td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -115,7 +115,7 @@
 <script type="text/javascript">
     function deletelog(id) {
         var present_row = event.target.parentNode.parentNode;
-        alert(id);
+        // alert(id);
         if(confirm("确认删除？")){
             $.ajax({
                 type:"post",
@@ -123,10 +123,13 @@
                 data:{
                     "id":id
                 },
-                datatype:"json",
+                dataType:"text",
                 success:function (data) {
-                    alert("删除成功");
+                    // alert("删除成功");
                     present_row.remove();
+                },
+                error:function (data) {
+                    alert("error")
                 }
             })
         }else {
