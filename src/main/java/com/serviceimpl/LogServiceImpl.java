@@ -23,6 +23,7 @@ public class LogServiceImpl implements LogService {
     @Override
     public List<logindexView> findalllog() {
         List<logindexView> logview = new ArrayList<>();
+
         List<TblLog> loglist = logDao.selectByExample(null);
         for (TblLog tblLog : loglist) {
             logindexView l = new logindexView();

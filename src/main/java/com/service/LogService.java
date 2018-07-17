@@ -1,6 +1,5 @@
 package com.service;
 
-import com.pojo.TblLog;
 import com.view.logindexView;
 
 import java.util.List;
