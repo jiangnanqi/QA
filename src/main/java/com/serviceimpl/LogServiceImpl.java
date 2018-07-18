@@ -3,6 +3,7 @@ package com.serviceimpl;
 import com.dao.TblLogMapper;
 import com.dao.TblUserMapper;
 import com.pojo.TblLog;
+import com.pojo.TblLogExample;
 import com.service.LogService;
 import com.view.logindexView;
 import org.springframework.beans.factory.annotation.Autowired;
