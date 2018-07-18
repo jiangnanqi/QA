@@ -34,12 +34,15 @@
         </div>
 
         <div id="page-inner">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="card">
-                        <div class="card-content">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="panel-body">
+                            <div class="row">
+                                &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" data-toggle="modal" data-target="#addModal">添加权限</button>
+                            </div>
+                            <br>
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover"
                                        id="dataTables-example">
@@ -59,7 +62,7 @@
                                             <td id="logicName${per.permissionId}">${per.permissionLogicName}</td>
                                             <td id="physicalName${per.permissionId}">${per.permissionPhysicalName}</td>
                                             <td class="center">${per.time}</td>
-                                            <td class="center">
+                                            <td class="center" style="align-content: center">
                                                 <button class="btn btn-white btn-sm" type="button" data-toggle="modal"
                                                         data-target="#editModal"
                                                         onclick="editPermission('${per.permissionId}')"><i
@@ -73,56 +76,102 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
-                    </div>
-                    <!--End Advanced Tables -->
-                    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModelLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                                        &times;
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">编辑系统权限</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal" id="editModalForm">
-                                        <div class="form-group" style="display: none;">
-                                            <input type="text" id="editPermissionId" name="permissionId"
-                                                   class="form-control" aria-required="true">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">权限逻辑名</label>
-                                            <div class="col-sm-8">
-                                                <input class="form-control" id="editLogicName" minlength="2"
-                                                       aria-required="true"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-3 control-label">权限物理名</label>
-                                            <div class="col-sm-8">
-                                                <input class="form-control" id="editPhysicalName" minlength="2"
-                                                       aria-required="true"/>
-                                            </div>
-                                        </div>
-
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                    <button type="button" class="btn btn-primary">提交更改</button>
-                                </div>
-                            </div><!-- /.modal-content -->
-                        </div><!-- /.modal -->
                     </div>
                 </div>
             </div>
-            <!-- /. ROW  -->
+            <!--End Advanced Tables -->
+            <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">编辑系统权限</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group" style="display: none">
+                                <div class="col-sm-8">
+                                    <input id="editPermissionId" name="editPermissionId" minlength="2" type="text" class="form-control" aria-required="true">
+                                </div>
+                            </div>
+                            <form class="form-horizontal" id="editModalForm">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">权限逻辑名</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="editLogicName" minlength="2"
+                                               aria-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">权限物理名</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="editPhysicalName" minlength="2"
+                                               aria-required="true"/>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="update()">提交更改</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
+
+
+
+            <!-- 添加模板 -->
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel1">添加系统权限</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" id="addModalForm">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">权限逻辑名</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="addLogicName" minlength="2"
+                                               aria-required="true"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">权限物理名</label>
+                                    <div class="col-sm-8">
+                                        <input class="form-control" id="addPhysicalName" minlength="2"
+                                               aria-required="true"/>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" onclick="addPermission()">提交</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
+
         </div>
-        <!-- /. PAGE INNER  -->
     </div>
+    <!-- /. ROW  -->
+</div>
+<!-- /. PAGE INNER  -->
+</div>
 </div>
 
 <!-- jQuery Js -->
@@ -145,6 +194,27 @@
         $('#dataTables-example').dataTable();
     });
 
+    function deletePermission(permissionid) {
+        var present_row = event.target.parentNode.parentNode.parentNode;
+        if(confirm("确定删除?")){
+            $.ajax({
+                type:"post",
+                url:"/permission/deletePermission",
+                data:{
+                    "permissionid":permissionid
+                },
+                success:function (data) {
+                    // alert("success");
+                    present_row.remove();
+                },
+                error:function (data) {
+                    alert("error");
+                }
+            });
+        };
+
+    }
+
     function editPermission(permissionid) {
         var editLogicName = document.getElementById("logicName" + permissionid).innerText;
         var editphysicalName = document.getElementById("physicalName" + permissionid).innerText;
@@ -154,6 +224,53 @@
         $("#editLogicName").val(editLogicName);
         $("#editPhysicalName").val(editphysicalName);
     }
+
+    function update() {
+        var permissionId = $('#editPermissionId').val();
+        var logicName = $('#editLogicName').val();
+        var physicalName = $('#editPhysicalName').val();
+        // alert(permissionId + " "+physicalName);
+        $.ajax({
+            type:"post",
+            url:"/permission/updatepermission",
+            dataType: "text",
+            data:{
+                "permissionId":permissionId,
+                "logicName":logicName,
+                "physicalName":physicalName
+            },
+            success:function (data) {
+                // alert("success");
+                window.location.reload();
+            },
+            error:function (data) {
+                alert("error");
+            }
+        });
+    }
+
+    function addPermission() {
+        var logicName = $('#addLogicName').val();
+        var physicalName = $('#addPhysicalName').val();
+        $.ajax({
+            type:"post",
+            url:"/permission/addpermission",
+            dataType: "text",
+            data:{
+                "logicName":logicName,
+                "physicalName":physicalName
+            },
+            success:function (data) {
+                // alert("success");
+                window.location.reload();
+            },
+            error:function (data) {
+                alert("error");
+            }
+        });
+    }
+
+
 </script>
 
 <!-- Custom Js -->

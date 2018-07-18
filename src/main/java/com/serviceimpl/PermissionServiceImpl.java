@@ -32,4 +32,24 @@ public class PermissionServiceImpl implements PermissionService {
         }
         return permissionViewList;
     }
+
+    @Override
+    public int updatePermissionByExample(TblPermission permission) {
+        int i = permissionMapper.updateByPrimaryKey(permission);
+        return i;
+    }
+
+    @Override
+    public int deletePermissionById(String permissionid) {
+        int i = permissionMapper.deleteByPrimaryKey(permissionid.trim());
+        return i;
+    }
+
+    @Override
+    public int addPermission(TblPermission permission) {
+        int count = permissionMapper.insert(permission);
+        return count;
+    }
+
+
 }

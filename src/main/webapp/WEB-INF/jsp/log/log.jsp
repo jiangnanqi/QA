@@ -34,15 +34,13 @@
         </div>
 
         <div id="page-inner">
-
-            <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
-                    <div class="card">
-                        <div class="card-content">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Advanced Tables -->
+                        <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover"
-                                       id="dataTables-example">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                     <tr>
                                         <%--<th><input type="checkbox"></th>--%>
@@ -67,25 +65,14 @@
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
                     </div>
-                    <!--End Advanced Tables -->
                 </div>
+                <!--End Advanced Tables -->
             </div>
-            <!-- /. ROW  -->
         </div>
-        <!-- /. PAGE INNER  -->
     </div>
 </div>
-</div>
-<!-- /. PAGE WRAPPER  -->
-<!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-</div>
-</div>
-<!-- /. PAGE WRAPPER  -->
-<!-- /. WRAPPER  -->
 
 
 <!-- jQuery Js -->
@@ -121,15 +108,13 @@
                 },
                 dataType: "text",
                 success: function (data) {
-                    // alert("删除成功");
+                    alert("删除成功");
                     present_row.remove();
                 },
                 error: function (data) {
                     alert("error")
                 }
             })
-        } else {
-
         }
     }
 </script>

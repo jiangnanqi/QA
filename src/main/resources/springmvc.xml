@@ -51,7 +51,6 @@
 	<mvc:resources location="/" mapping="/**/*.css"/>
 	<mvc:resources location="/" mapping="/**/*.png"/>
 	<mvc:resources location="/" mapping="/**/*.gif"/>
-	<mvc:resources location="/" mapping="/**/*.jpg"/>
 	<mvc:resources mapping="/assets/**" location="/assets/" />
 
 
