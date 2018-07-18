@@ -29,7 +29,7 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                日志列表
+                权限列表
             </h1>
         </div>
 
