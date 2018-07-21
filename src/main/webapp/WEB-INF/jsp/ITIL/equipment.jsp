@@ -9,6 +9,7 @@
     <title>日志信息</title>
     <!-- Bootstrap Styles-->
     <link href="../../../assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../../assets/css/jquery.dataTables.css" rel="stylesheet">
     <!-- FontAwesome Styles-->
     <link href="../../../assets/css/font-awesome.css" rel="stylesheet"/>
     <!-- Morris Chart Styles-->
@@ -29,7 +30,7 @@
     <div id="page-wrapper">
         <div class="header">
             <h1 class="page-header">
-                日志列表
+                设备信息
             </h1>
         </div>
 

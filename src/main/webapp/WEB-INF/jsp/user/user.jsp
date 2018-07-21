@@ -8,6 +8,7 @@
     <title>日志信息</title>
     <!-- Bootstrap Styles-->
     <link href="../../../assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../../assets/css/jquery.dataTables.css" rel="stylesheet">
     <!-- FontAwesome Styles-->
     <link href="../../../assets/css/font-awesome.css" rel="stylesheet"/>
     <!-- Morris Chart Styles-->
@@ -142,7 +143,7 @@
                     <div id="tab-33" class="tab-pane">
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>头像</th>

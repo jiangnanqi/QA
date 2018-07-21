@@ -8,6 +8,7 @@
     <title>日志信息</title>
     <!-- Bootstrap Styles-->
     <link href="../../../assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="../../../assets/css/jquery.dataTables.css" rel="stylesheet">
     <!-- FontAwesome Styles-->
     <link href="../../../assets/css/font-awesome.css" rel="stylesheet"/>
     <!-- Morris Chart Styles-->
@@ -26,7 +27,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-header">
-                    用户列表
+                    事件管理
                 </h1>
             </div>
         </div>

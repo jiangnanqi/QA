@@ -17,17 +17,17 @@
     <link href="../../../assets/css/custom-styles.css" rel="stylesheet"/>
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+    <link href="../../../assets/css/bootstrap-select.css" rel="stylesheet">
 </head>
 <body>
 <div id="wrapper">
     <jsp:include page="/topbar.html"></jsp:include>
     <jsp:include page="/leftbar.html"></jsp:include>
-    <%--<%@include file="/leftbar.html"%>--%>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-header">
-                    问题管理
+                    事件管理
                 </h1>
             </div>
         </div>
@@ -38,8 +38,8 @@
                 <div class="col-sm-6" style="width: 100%;">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-31" aria-expanded="true">待处理问题</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-32" aria-expanded="false">已处理问题</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-31" aria-expanded="true">待处理事件</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-32" aria-expanded="false">已处理事件</a></li>
                         </ul>
                     </div>
                 </div>
@@ -50,42 +50,27 @@
 
                     <div id="tab-31" class="tab-pane active">
                         <div class="panel-body">
+                            <div class="col-sm-9 control-label">faq信息列表</div>
+                            <div class="col-sm-3 form-group">
+                                <label>选择分类</label>
+                                <select id="classity1" class="">
+
+                                </select>
+                            </div>
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table class="table table-striped table-bordered table-hover" id="tableallfaq">
                                     <thead>
                                     <tr>
                                     <tr>
                                         <th>序号</th>
-                                        <th>问题标题</th>
-                                        <%--<th>内容</th>--%>
-                                        <th>问题分类</th>
-                                        <th>提问用户</th>
-                                        <th>提问时间</th>
-                                        <th>查看</th>
-                                        <th>忽略</th>
+                                        <th>FAQ名称</th>
+                                        <th>提交用户</th>
+                                        <th>删除</th>
+                                        <th>详情</th>
                                     </tr>
                                     </tr>
                                     </thead>
-                                    <tbody>
-
-                                    <c:forEach var="problem" items="${problemUnresolved}" varStatus="i">
-                                        <tr class="odd gradeX">
-                                            <td>${i.count}</td>
-                                            <td>${problem.problemTitle}</td>
-                                            <%--<td>${problem.problemContent}</td>--%>
-                                            <td>${problem.problemClassifyName}</td>
-                                            <td>${problem.problemUserName}</td>
-                                            <td>${problem.problemTime}</td>
-                                            <td><a href="#">详细信息</a></td>
-                                            <td>
-                                                <button class="btn btn-white btn-sm" type="button">
-                                                    <i class="glyphicon glyphicon-folder-close"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-
-                                    </tbody>
+                                    <tbody></tbody>
                                 </table>
                             </div>
 
@@ -100,28 +85,20 @@
                                     <tr>
                                         <th>序号</th>
                                         <th>问题名称</th>
-                                        <%--<th>内容</th>--%>
-                                        <th>问题分类</th>
                                         <th>提问用户</th>
-                                        <th>提问时间</th>
-                                        <th>回复者</th>
-                                        <%--<th>回复内容</th>--%>
-                                        <th>查看</th>
-                                        <th>操作</th>
+                                        <th>问题时间</th>
+                                        <th>删除</th>
+                                        <th>详情</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    <c:forEach var="problem" items="${problemresolved}" varStatus="i">
+                                    <c:forEach var="event" items="${eventresolved}" varStatus="i">
                                         <tr class="odd gradeX">
                                             <td>${i.count}</td>
-                                            <td>${problem.problemTitle}</td>
-                                            <%--<td>${problem.problemContent}</td>--%>
-                                            <td>${problem.problemClassifyName}</td>
-                                            <td>${problem.problemUserName}</td>
-                                            <td>${problem.problemTime}</td>
-                                            <td>${problem.answerUserName}</td>
-                                            <%--<td>${problem.answerContent}</td>--%>
+                                            <td>${event.userQuestionTitle}</td>
+                                            <td>${event.userName}</td>
+                                            <td>${event.userQuestionTime}</td>
                                             <td><a href="#">详细信息</a></td>
                                             <td>
                                                 <button class="btn btn-white btn-sm" type="button">
@@ -156,8 +133,88 @@
 <script src="../../../assets/js/dataTables/dataTables.bootstrap.js"></script>
 <script>
     $(document).ready(function () {
-        // $('.table.table-striped.table-bordered.table-hover').dataTable();
-        $('.table.table-striped.table-bordered.table-hover').dataTable();
+        $.ajax({
+            type:"post",
+            url:"/classfiy/getclassify",
+            success:function (data) {
+                console.log(data[0]["faqclassifyid"])
+                for(var i=0;i<data.length;i++){
+                    // alert("<option value='"+data[i]['faqclassifyid']+"'>"+data[i]['faqclassifyname']+"</option>");
+                    $("#classity1").append("<option value='"+data[i]['faqclassifyid']+"'>"+data[i]['faqclassifyname']+"</option>");
+                }
+            },
+            error:function (data) {
+                alert("aaaaaaaaaa");
+                alert("error");
+            }
+        });
+
+
+        // alert($("#classity1").find("option:selected").val());
+
+        $.ajax({
+            type:"post",
+            url:"/getFaqList",
+            data:{
+              "id":"016db053-b29c-44f9-875b-960b29ead9f2"
+            },
+            success:function (data) {
+                console.log(data);
+
+                for(var i=0;i<data.length;i++){
+                    var tr = document.createElement("tr");
+
+                    var tdid = document.createElement("td")
+                    tdid.setAttribute()
+                    var tdindex = document.createElement("td");
+                    tdindex.innerHTML = ""+(i+1);
+                    var tdname = document.createElement("td");
+                    tdname.innerHTML = data[i]['faqtitle'];
+                    var tduser = document.createElement("td");
+                    tduser.innerHTML = data[i]['username'];
+                    var deleteindex = document.createElement('td');
+
+                    var id = data[i]['faqquestionid'];
+
+                    deleteindex.innerHTML = '<button class="btn btn-white btn-sm" type="button" onclick="deletefaq();">\n' +
+                        '                        <i class="glyphicon glyphicon-trash"></i>\n' +
+                        '                        </button>';
+                    var showindex = document.createElement("td");
+                    showindex.innerHTML = '<button class="btn btn-white btn-sm" type="button">\n' +
+                        '                        <i class="glyphicon glyphicon-eye-open"></i>\n' +
+                        '                        </button>';
+
+                    tr.appendChild(tdindex);
+                    tr.appendChild(tdname);
+                    tr.appendChild(tduser);
+                    tr.appendChild(deleteindex);
+                    tr.appendChild(showindex);
+
+                    $('#tableallfaq tbody').append(tr);
+                }
+
+                $('.table.table-striped.table-bordered.table-hover').dataTable({
+                    "searching":false
+                });
+            },
+            error:function (data) {
+                alert("error1");
+            }
+        });
+
+
+
+    });
+
+    function deletefaq(id) {
+        alert("hahahah");
+        alert(id)
+    }
+</script>
+<script src="../../../assets/js/bootstrap-select.js"></script>
+<script>
+    $('.selectpicker').selectpicker({
+        size:6
     });
 </script>
 <%--<!-- Morris Chart Js -->--%>

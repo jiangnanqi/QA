@@ -1,14 +1,15 @@
-package com.service;
+package com.serviceimpl;
 
 import com.dao.TblComputerMapper;
 import com.pojo.TblComputer;
+import com.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service("ComputerService")
-public class ComputerServiceImpl implements ComputerService{
+public class ComputerServiceImpl implements ComputerService {
 
     @Autowired
     private TblComputerMapper computerMapper;
