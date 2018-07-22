@@ -64,4 +64,10 @@ public class FaqServiceImpl implements FaqService {
         }
         return list;
     }
+
+    @Override
+    public int deleteFaqById(String id) {
+        int count = faqquestionMapper.deleteByPrimaryKey(id);
+        return count;
+    }
 }

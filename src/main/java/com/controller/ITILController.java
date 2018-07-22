@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class ITILController {
 
         //事件
         List<EventView> eventUnresolved = eventService.getEventbySatificationAndStat(0, 0);
-        List<EventView> eventresolved = eventService.getEventbySatificationAndStat(0, 1);
+        List<EventView> eventresolved = eventService.getEventbySatificationAndStat(1, 0);
 
         mv.addObject("eventUnresolved",eventUnresolved);
         mv.addObject("eventresolved",eventresolved);
@@ -49,7 +50,7 @@ public class ITILController {
     public ModelAndView problem(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new ModelAndView();
 
-        //事件
+        //事件FaqView.java
         List<ProblemView> problemUnresolved = problenService.getEventbyIsanswerAndquestionStat(0, 0);
         List<Problem_AnswerView> problemresolved = problenService.getEventbyIsanswerAndquestionStatbyAnswer();
 
@@ -75,6 +76,17 @@ public class ITILController {
         List<FaqView> list = new ArrayList<>();
         List<FaqView> faqList = faqService.getFaqList(id);
         return faqList;
+    }
+
+    @RequestMapping("/deleteFaqById")
+    public void deleteFaqById(HttpServletRequest request,HttpServletResponse response){
+        String id = request.getParameter("id");
+        int count = faqService.deleteFaqById(id);
+        try {
+            response.getWriter().print(count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

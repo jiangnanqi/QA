@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="page-header">
-                    事件管理
+                    faq管理
                 </h1>
             </div>
         </div>
@@ -164,8 +164,7 @@
                 for(var i=0;i<data.length;i++){
                     var tr = document.createElement("tr");
 
-                    var tdid = document.createElement("td")
-                    tdid.setAttribute()
+
                     var tdindex = document.createElement("td");
                     tdindex.innerHTML = ""+(i+1);
                     var tdname = document.createElement("td");
@@ -176,7 +175,7 @@
 
                     var id = data[i]['faqquestionid'];
 
-                    deleteindex.innerHTML = '<button class="btn btn-white btn-sm" type="button" onclick="deletefaq();">\n' +
+                    deleteindex.innerHTML = '<button id='+id+' class="btn btn-white btn-sm" type="button" onclick="deletefaq(this);">\n' +
                         '                        <i class="glyphicon glyphicon-trash"></i>\n' +
                         '                        </button>';
                     var showindex = document.createElement("td");
@@ -205,12 +204,36 @@
 
 
     });
-
-    function deletefaq(id) {
-        alert("hahahah");
-        alert(id)
+    function deletefaq(obj) {
+        // alert("hahahah");
+        var id = $(obj).attr("id");
+        var present_row = event.target.parentNode.parentNode;
+        alert(id);
+        $.ajax({
+            type:"post",
+            url:"/deleteFaqById",
+            data:{
+              "id":id
+            },
+            dataType:"text",
+            success:function (data) {
+                alert(data);
+                alert("success");
+                present_row.remove();
+            },
+            error:function (data) {
+                alert("aaaaaaaaaa");
+                alert("error");
+            }
+        });
+        // alert(id)
     }
+
 </script>
+<script type="text/javascript">
+
+</script>
+
 <script src="../../../assets/js/bootstrap-select.js"></script>
 <script>
     $('.selectpicker').selectpicker({
