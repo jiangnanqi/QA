@@ -68,6 +68,22 @@ public class UserServiceImpl implements UserService {
         return publicUserList;
     }
 
+    @Override
+    public int updateRoleidByUserId(String userid, String roleid) {
+        TblUser user = userDao.selectByPrimaryKey(userid);
+        user.setRoleid(roleid.trim());
+        int count = userDao.updateByPrimaryKey(user);
+        return count;
+    }
+
+    @Override
+    public int updatePassword(String id, String password) {
+        TblUser user = userDao.selectByPrimaryKey(id);
+        user.setUserpassword(password);
+        int count = userDao.updateByPrimaryKey(user);
+        return count;
+    }
+
 
     /**
      * 获取

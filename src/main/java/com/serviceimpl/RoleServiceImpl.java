@@ -26,4 +26,10 @@ public class RoleServiceImpl implements RoleService {
         List<TblRole> roleslist = roleMapper.selectByExample(role);
         return roleslist;
     }
+
+    @Override
+    public List<TblRole> getAllRole() {
+        List<TblRole> roles = roleMapper.selectByExample(null);
+        return roles;
+    }
 }

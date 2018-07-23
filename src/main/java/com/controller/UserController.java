@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -87,5 +88,36 @@ public class UserController {
 
     }
 
+    @RequestMapping("/updateUserRole")
+    public void updateUserRole(HttpServletRequest request, HttpServletResponse response){
+        String userid = request.getParameter("userid");
+        String roleid = request.getParameter("roleid");
+        int count = userService.updateRoleidByUserId(userid, roleid);
+        try {
+            response.getWriter().print(count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/resetPassword")
+    public void resetPassword(HttpServletRequest request,HttpServletResponse response){
+        String id = request.getParameter("id");
+        String password =null;
+        try {
+            password = MD5.EncoderByMd5("111111");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        int count = userService.updatePassword(id, password);
+        try {
+            response.getWriter().print(count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

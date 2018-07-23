@@ -14,4 +14,8 @@ public interface UserService {
     List<UserView> getAllPendingAuditUsers(int state);
 
     List<UserView> getAllUser(int i, String roleid);
+
+    int updateRoleidByUserId(String userid, String roleid);
+
+    int updatePassword(String id, String password);
 }

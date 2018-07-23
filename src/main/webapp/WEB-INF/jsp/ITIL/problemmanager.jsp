@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>日志信息</title>
+    <title>问题管理</title>
     <!-- Bootstrap Styles-->
     <link href="../../../assets/css/bootstrap.css" rel="stylesheet"/>
     <link href="../../../assets/css/jquery.dataTables.css" rel="stylesheet">
