@@ -72,9 +72,9 @@
                                             <td>${event.userQuestionTitle}</td>
                                             <td>${event.userName}</td>
                                             <td>${event.userQuestionTime}</td>
-                                            <td><a href="#">详细信息</a></td>
+                                            <td><a href="<%=request.getContextPath() %>/unresolveEventInfo?id=${event.userQuestionId}">详细信息</a></td>
                                             <td>
-                                                <button class="btn btn-white btn-sm" type="button">
+                                                <button class="btn btn-white btn-sm" type="button" onclick="ignoreevent('${event.userQuestionId}')">
                                                     <i class="glyphicon glyphicon-folder-close"></i>
                                                 </button>
                                             </td>
@@ -110,9 +110,9 @@
                                             <td>${event.userQuestionTitle}</td>
                                             <td>${event.userName}</td>
                                             <td>${event.userQuestionTime}</td>
-                                            <td><a href="#">详细信息</a></td>
+                                            <td><a href="<%=request.getContextPath() %>/resolveevent?id=${event.userQuestionId}">详细信息</a></td>
                                             <td>
-                                                <button class="btn btn-white btn-sm" type="button">
+                                                <button class="btn btn-white btn-sm" type="button" onclick="ignoreevent('${event.userQuestionId}')">
                                                     <i class="glyphicon glyphicon-folder-close"></i>
                                                 </button>
                                             </td>
@@ -147,6 +147,30 @@
         // $('.table.table-striped.table-bordered.table-hover').dataTable();
         $('.table.table-striped.table-bordered.table-hover').dataTable();
     });
+
+
+    function ignoreevent(id) {
+        var present_row = event.target.parentNode.parentNode;
+        if (confirm("确认忽略吗？")) {
+            $.ajax({
+                type: "post",
+                url: "/ignoreevent",
+                data: {
+                    "id": id
+                },
+                dataType: "text",
+                success: function (data) {
+                    // alert(data);
+                    alert("成功");
+                    present_row.remove();
+                },
+                error: function (data) {
+                    alert("error")
+                }
+            })
+        }
+
+    }
 </script>
 <%--<!-- Morris Chart Js -->--%>
 <%--<script src="../../../assets/js/morris/raphael-2.1.0.min.js"></script>--%>

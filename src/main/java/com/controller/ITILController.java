@@ -3,10 +3,7 @@ package com.controller;
 import com.service.EventService;
 import com.service.FaqService;
 import com.service.ProblenService;
-import com.view.EventView;
-import com.view.FaqView;
-import com.view.ProblemView;
-import com.view.Problem_AnswerView;
+import com.view.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,6 +43,46 @@ public class ITILController {
         return mv;
     }
 
+    @RequestMapping("/unresolveEventInfo")
+    public ModelAndView unresolveEventInfo(HttpServletRequest request){
+        ModelAndView mv = new ModelAndView();
+        String userQuestionId = request.getParameter("id");
+        EventView eventView = eventService.getUserQuestionDetailById(userQuestionId);
+        mv.addObject("eventView",eventView);
+        mv.setViewName("ITIL/unresolveevent");
+        return mv;
+    }
+
+    @RequestMapping("/ignoreevent")
+    public void ignoreevent(HttpServletRequest request, HttpServletResponse response){
+        String id = request.getParameter("id");
+        int count = eventService.updateUserProblem(id);
+        if(count!=0){
+            try {
+                response.getWriter().print(count);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else{
+            System.out.println("error");
+        }
+    }
+
+    @RequestMapping("/resolveevent")
+    public ModelAndView resolveevent(HttpServletRequest request){
+        String id = request.getParameter("id");
+        ModelAndView mv = new ModelAndView();
+
+        Event_AnswerView event_answerView = eventService.getEventDetailById(id);
+
+        mv.addObject("event_answerView",event_answerView);
+        mv.setViewName("ITIL/resolveevent");
+
+        return mv;
+    }
+
+
+
     @RequestMapping("/problemManager")
     public ModelAndView problem(HttpServletRequest request, HttpServletResponse response){
         ModelAndView mv = new ModelAndView();
@@ -62,6 +99,48 @@ public class ITILController {
 
         return mv;
     }
+
+    @RequestMapping("/ignoreproblem")
+    public void ignoreproblem(HttpServletRequest request, HttpServletResponse response){
+        String id = request.getParameter("id");
+        int count = problenService.updateCommunityProblem(id);
+        if(count!=0){
+            try {
+                response.getWriter().print(count);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            System.out.println("error");
+        }
+    }
+
+    @RequestMapping("/probleminfo")
+    public ModelAndView infoProblemDetail(HttpServletRequest request, HttpServletResponse response){
+        String communityQuestionId = request.getParameter("id");
+
+        ModelAndView mv = new ModelAndView();
+
+        Problem_AnswerView problem_answerView =  problenService.getDetailForProblem(communityQuestionId);
+
+        mv.addObject("problem_answerView",problem_answerView);
+        mv.setViewName("ITIL/resolveproblem");
+        return mv;
+    }
+
+    @RequestMapping("/unresolveprobleminfo")
+    public ModelAndView unresolveprobleminfo(HttpServletRequest request, HttpServletResponse response){
+        String communityQuestionId = request.getParameter("id");
+
+        ModelAndView mv = new ModelAndView();
+
+        ProblemView problemView =  problenService.getDetailForUnresolveProblem(communityQuestionId);
+
+        mv.addObject("problemView",problemView);
+        mv.setViewName("ITIL/unresolveproblem");
+        return mv;
+    }
+
 
     @RequestMapping("/FAQmanager")
     public ModelAndView findAllFaq(){
@@ -88,8 +167,4 @@ public class ITILController {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

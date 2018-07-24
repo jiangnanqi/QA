@@ -72,15 +72,15 @@
                                         <tr class="odd gradeX">
                                             <td>${i.count}</td>
                                             <td>${problem.problemTitle}</td>
-                                            <%--<td>${problem.problemContent}</td>--%>
+                                                <%--<td>${problem.problemContent}</td>--%>
                                             <td>${problem.problemClassifyName}</td>
                                             <td>${problem.problemUserName}</td>
                                             <td>${problem.problemTime}</td>
-                                            <td><a href="#">详细信息</a></td>
+                                            <td><a href="<%=request.getContextPath() %>/unresolveprobleminfo?id=${problem.problemId}">详细信息</a></td>
                                             <td>
-                                                <button class="btn btn-white btn-sm" type="button">
-                                                    <i class="glyphicon glyphicon-folder-close"></i>
-                                                </button>
+                                                <button class="btn btn-white btn-sm" type="button"
+                                                        onclick="ignoreproblem('${problem.problemId}')"><i
+                                                        class="glyphicon glyphicon-folder-close"></i></button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -116,17 +116,17 @@
                                         <tr class="odd gradeX">
                                             <td>${i.count}</td>
                                             <td>${problem.problemTitle}</td>
-                                            <%--<td>${problem.problemContent}</td>--%>
+                                                <%--<td>${problem.problemContent}</td>--%>
                                             <td>${problem.problemClassifyName}</td>
                                             <td>${problem.problemUserName}</td>
                                             <td>${problem.problemTime}</td>
                                             <td>${problem.answerUserName}</td>
-                                            <%--<td>${problem.answerContent}</td>--%>
-                                            <td><a href="#">详细信息</a></td>
+                                                <%--<td>${problem.answerContent}</td>--%>
+                                            <td><a href="<%=request.getContextPath() %>/probleminfo?id=${problem.problemId}">详细信息</a></td>
                                             <td>
-                                                <button class="btn btn-white btn-sm" type="button">
-                                                    <i class="glyphicon glyphicon-folder-close"></i>
-                                                </button>
+                                                <button class="btn btn-white btn-sm" type="button"
+                                                        onclick="ignoreproblem('${problem.problemId}')"><i
+                                                        class="glyphicon glyphicon-folder-close"></i></button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -159,6 +159,30 @@
         // $('.table.table-striped.table-bordered.table-hover').dataTable();
         $('.table.table-striped.table-bordered.table-hover').dataTable();
     });
+
+    function ignoreproblem(id) {
+        var present_row = event.target.parentNode.parentNode;
+        if (confirm("确认忽略吗？")) {
+            $.ajax({
+                type: "post",
+                url: "/ignoreproblem",
+                data: {
+                    "id": id
+                },
+                dataType: "text",
+                success: function (data) {
+                    // alert(data);
+                    alert("成功");
+                    present_row.remove();
+                },
+                error: function (data) {
+                    alert("error")
+                }
+            })
+        }
+
+    }
+
 </script>
 <%--<!-- Morris Chart Js -->--%>
 <%--<script src="../../../assets/js/morris/raphael-2.1.0.min.js"></script>--%>

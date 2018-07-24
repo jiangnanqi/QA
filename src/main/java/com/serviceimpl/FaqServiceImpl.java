@@ -1,12 +1,10 @@
 package com.serviceimpl;
 
+import com.dao.TblFaqanswerMapper;
 import com.dao.TblFaqclassifyMapper;
 import com.dao.TblFaqquestionMapper;
 import com.dao.TblUserMapper;
-import com.pojo.TblFaqclassify;
-import com.pojo.TblFaqclassifyExample;
-import com.pojo.TblFaqquestion;
-import com.pojo.TblFaqquestionExample;
+import com.pojo.*;
 import com.service.FaqService;
 import com.view.FaqView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,8 @@ public class FaqServiceImpl implements FaqService {
     @Autowired
     private TblFaqclassifyMapper faqclassifyMapper;
 
+    @Autowired
+    private TblFaqanswerMapper faqanswerMapper;
 
     @Override
     public List<FaqView> getFaqList(String id) {
@@ -67,6 +67,15 @@ public class FaqServiceImpl implements FaqService {
 
     @Override
     public int deleteFaqById(String id) {
+        TblFaqquestion faqquestion = faqquestionMapper.selectByPrimaryKey(id);
+
+        TblFaqanswerExample robotanswerExample = new TblFaqanswerExample();
+        robotanswerExample.createCriteria().andFaqquestionidEqualTo(id);
+        List<TblFaqanswer> faqanswers = faqanswerMapper.selectByExample(robotanswerExample);
+        for (TblFaqanswer faqanswer : faqanswers) {
+            faqanswerMapper.deleteByPrimaryKey(faqanswer.getFaqanswerid());
+        }
+
         int count = faqquestionMapper.deleteByPrimaryKey(id);
         return count;
     }

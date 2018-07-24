@@ -24,4 +24,12 @@ public class ClassifyServiceImpl implements ClassityService {
         List<TblFaqclassify> faqclassifyList = faqclassifyMapper.selectByExample(example);
         return faqclassifyList;
     }
+
+    @Override
+    public List<TblFaqclassify> getSecondClassity(String topid) {
+        TblFaqclassifyExample example = new TblFaqclassifyExample();
+        example.createCriteria().andFaqparentidEqualTo(topid);
+        List<TblFaqclassify> faqclassifyList = faqclassifyMapper.selectByExample(example);
+        return faqclassifyList;
+    }
 }

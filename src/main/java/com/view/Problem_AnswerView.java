@@ -15,6 +15,15 @@ public class Problem_AnswerView {
     private String answerUserName;
     private String answerTime;
     private String answerContent;
+    private String answerUserId;
+
+    public String getAnswerUserId() {
+        return answerUserId;
+    }
+
+    public void setAnswerUserId(String answerUserId) {
+        this.answerUserId = answerUserId;
+    }
 
     public String getProblemId() {
         return problemId;

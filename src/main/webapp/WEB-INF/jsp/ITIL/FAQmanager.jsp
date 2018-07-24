@@ -53,7 +53,7 @@
                             <div class="col-sm-9 control-label">faq信息列表</div>
                             <div class="col-sm-3 form-group">
                                 <label>选择分类</label>
-                                <select id="classity1" class="">
+                                <select id="classity1" class="" onchange="modifyTable()">
 
                                 </select>
                             </div>
@@ -163,6 +163,81 @@
 
                 for(var i=0;i<data.length;i++){
                     var tr = document.createElement("tr");
+                    var tdindex = document.createElement("td");
+                    tdindex.innerHTML = ""+(i+1);
+                    var tdname = document.createElement("td");
+                    tdname.innerHTML = data[i]['faqtitle'];
+                    var tduser = document.createElement("td");
+                    tduser.innerHTML = data[i]['username'];
+                    var deleteindex = document.createElement('td');
+
+                    var id = data[i]['faqquestionid'];
+
+                    deleteindex.innerHTML = '<button id='+id+' class="btn btn-white btn-sm" type="button" onclick="deletefaq(this);">\n' +
+                        '                        <i class="glyphicon glyphicon-trash"></i>\n' +
+                        '                        </button>';
+                    var showindex = document.createElement("td");
+                    showindex.innerHTML = '<button class="btn btn-white btn-sm" type="button">\n' +
+                        '                        <i class="glyphicon glyphicon-eye-open"></i>\n' +
+                        '                        </button>';
+
+                    tr.appendChild(tdindex);
+                    tr.appendChild(tdname);
+                    tr.appendChild(tduser);
+                    tr.appendChild(deleteindex);
+                    tr.appendChild(showindex);
+
+                    $('#tableallfaq>tbody').append(tr);
+                }
+
+                table = $('.table.table-striped.table-bordered.table-hover').dataTable({
+                    "searching":false
+                });
+            },
+            error:function (data) {
+                alert("error1");
+            }
+        });
+    });
+    function deletefaq(obj) {
+        // alert("hahahah");
+        var id = $(obj).attr("id");
+        var present_row = event.target.parentNode.parentNode;
+        alert(id);
+        $.ajax({
+            type:"post",
+            url:"/deleteFaqById",
+            data:{
+              "id":id
+            },
+            dataType:"text",
+            success:function (data) {
+                alert(data);
+                alert("success");
+                present_row.remove();
+            },
+            error:function (data) {
+                alert("aaaaaaaaaa");
+                alert("error");
+            }
+        });
+        // alert(id)
+    }
+
+    function modifyTable() {
+        var topClassifyId = $('#classity1>option:selected').val();
+        $.ajax({
+            type:"post",
+            url:"/getFaqList",
+            data:{
+                "id":topClassifyId
+            },
+            success:function (data) {
+                // console.log(data);
+                table.fnDestroy();
+                $('#tableallfaq>tbody').html("");
+                for(var i=0;i<data.length;i++){
+                    var tr = document.createElement("tr");
 
 
                     var tdindex = document.createElement("td");
@@ -192,41 +267,15 @@
                     $('#tableallfaq tbody').append(tr);
                 }
 
-                $('.table.table-striped.table-bordered.table-hover').dataTable({
+                $('#tableallfaq').dataTable({
                     "searching":false
                 });
-            },
-            error:function (data) {
-                alert("error1");
-            }
-        });
-
-
-
-    });
-    function deletefaq(obj) {
-        // alert("hahahah");
-        var id = $(obj).attr("id");
-        var present_row = event.target.parentNode.parentNode;
-        alert(id);
-        $.ajax({
-            type:"post",
-            url:"/deleteFaqById",
-            data:{
-              "id":id
-            },
-            dataType:"text",
-            success:function (data) {
-                alert(data);
-                alert("success");
-                present_row.remove();
             },
             error:function (data) {
                 alert("aaaaaaaaaa");
                 alert("error");
             }
         });
-        // alert(id)
     }
 
 </script>
