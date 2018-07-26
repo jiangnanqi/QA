@@ -147,4 +147,22 @@ public class FaqServiceImpl implements FaqService {
         int count = faqquestionMapper.updateByPrimaryKey(faqquestion);
         return count;
     }
+
+    @Override
+    public int getFaqListCount(String faqclassifyid) {
+        TblFaqclassifyExample faqclassifyExample = new TblFaqclassifyExample();
+        faqclassifyExample.createCriteria().andFaqparentidEqualTo(faqclassifyid);
+        List<TblFaqclassify> faqclassifies = faqclassifyMapper.selectByExample(faqclassifyExample);
+
+        int count = 0;
+
+        for (TblFaqclassify faqclassify : faqclassifies) {
+            TblFaqquestionExample example = new TblFaqquestionExample();
+            example.createCriteria().andFaqclassifyidEqualTo(faqclassify.getFaqclassifyid());
+
+            List<TblFaqquestion> faqquestions = faqquestionMapper.selectByExample(example);
+            count += faqquestions.size();
+        }
+        return count;
+    }
 }

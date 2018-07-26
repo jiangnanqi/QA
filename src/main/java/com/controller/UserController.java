@@ -51,7 +51,7 @@ public class UserController {
             TblUser user = users.get(0);
 //            System.out.println(user);
             session.setAttribute("loginuser",user);
-            return "redirect:/user";
+            return "redirect:/index";
         }
     }
 

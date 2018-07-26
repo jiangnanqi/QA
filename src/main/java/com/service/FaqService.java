@@ -16,4 +16,6 @@ public interface FaqService {
     List<FaqViewUnDeal> getFaqListUnDeal();
 
     int updateFaqState(String id);
+
+    int getFaqListCount(String faqclassifyid);
 }
