@@ -21,8 +21,10 @@
 </head>
 <body>
 <div id="wrapper">
-    <jsp:include page="/topbar.html"></jsp:include>
-    <jsp:include page="/leftbar.html"></jsp:include>
+    <%--<jsp:include page="/topbar.html"></jsp:include>--%>
+    <%--<jsp:include page="/leftbar.html"></jsp:include>--%>
+        <%@include file="/topbar.html"%>
+        <%@include file="/leftbar.html"%>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-md-12">
@@ -38,8 +40,8 @@
                 <div class="col-sm-6" style="width: 100%;">
                     <div class="tabs-container">
                         <ul class="nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#tab-31" aria-expanded="true">待处理事件</a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-32" aria-expanded="false">已处理事件</a></li>
+                            <li class="active"><a data-toggle="tab" href="#tab-31" aria-expanded="true">所有FAQ</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-32" aria-expanded="false">待审核FAQ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -84,26 +86,33 @@
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>问题名称</th>
-                                        <th>提问用户</th>
-                                        <th>问题时间</th>
-                                        <th>删除</th>
-                                        <th>详情</th>
+                                        <th>FAQ名称</th>
+                                        <th>FAQ分类名</th>
+                                        <th>FAQ答案</th>
+                                        <th>提交用户</th>
+                                        <th>提交时间</th>
+                                        <th>审核</th>
+                                        <th>操作</th>
+                                        <th>更多详情</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    <c:forEach var="event" items="${eventresolved}" varStatus="i">
+                                    <c:forEach var="faqview" items="${faqListUnDeal}" varStatus="i">
                                         <tr class="odd gradeX">
                                             <td>${i.count}</td>
-                                            <td>${event.userQuestionTitle}</td>
-                                            <td>${event.userName}</td>
-                                            <td>${event.userQuestionTime}</td>
-                                            <td><a href="#">详细信息</a></td>
+                                            <td>${faqview.FAQTITLE}</td>
+                                            <td>${faqview.FAQCLASSIFYName}</td>
+                                            <td>${faqview.faqAnswer}</td>
+                                            <td>${faqview.USERNAME}</td>
+                                            <td>${faqview.MODIFYTIME}</td>
+                                            <td><a href="#" onclick="approveFaq('${faqview.FAQQUESTIONID}')">通过</a></td>
+                                            <td><a id="${faqview.FAQQUESTIONID}" href="#" onclick="deletefaq(this)">删除</a></td>
                                             <td>
-                                                <button class="btn btn-white btn-sm" type="button">
-                                                    <i class="glyphicon glyphicon-folder-close"></i>
-                                                </button>
+                                                <button id="${faqview.FAQQUESTIONID}" class="btn btn-white btn-sm" type="button" data-toggle="modal"
+                                                        data-target="#showModal"
+                                                        onclick="showInfo(this)"><i
+                                                        class="glyphicon glyphicon-eye-open"></i></button>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -116,6 +125,49 @@
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModelLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" style="width: 60%">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title" id="myModalLabel">更多信息</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="form-group" style="display: none">
+                                <div class="col-sm-8">
+                                    <input id="modalfaqquestionid" name="editPermissionId" minlength="2" type="text"
+                                           class="form-control" aria-required="true">
+                                </div>
+                            </div>
+                            <form class="form-horizontal" id="editModalForm">
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">FAQ名称:</label>
+                                    <label class="control-label" id="modalfaqname"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">FAQ分类名:</label>
+                                    <label class="control-label" id="modalclassifyname"></label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">FAQ答案:</label>
+                                    <%--<label class="control-label" id="modalfaqanswer"></label>--%>
+                                    <p class="form-control-static" id="modalfaqanswer"></p>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal -->
+            </div>
+
+
         </div>
 
     </div>
@@ -177,7 +229,7 @@
                         '                        <i class="glyphicon glyphicon-trash"></i>\n' +
                         '                        </button>';
                     var showindex = document.createElement("td");
-                    showindex.innerHTML = '<button class="btn btn-white btn-sm" type="button">\n' +
+                    showindex.innerHTML = '<button id='+id+' class="btn btn-white btn-sm" data-toggle="modal" data-target="#showModal"  type="button" onclick="showInfo(this);">\n' +
                         '                        <i class="glyphicon glyphicon-eye-open"></i>\n' +
                         '                        </button>';
 
@@ -203,26 +255,56 @@
         // alert("hahahah");
         var id = $(obj).attr("id");
         var present_row = event.target.parentNode.parentNode;
-        alert(id);
+        // alert(id);
+        if (confirm("确认删除吗？")) {
+            $.ajax({
+                type: "post",
+                url: "/deleteFaqById",
+                data: {
+                    "id": id
+                },
+                dataType: "text",
+                success: function (data) {
+                    // alert(data);
+                    alert("success");
+                    present_row.remove();
+                },
+                error: function (data) {
+                    alert("aaaaaaaaaa");
+                    alert("error");
+                }
+            });
+            // alert(id)
+        }
+    }
+
+
+    function showInfo(obj) {
+        // alert("hahahah");
+        var id = $(obj).attr("id");
+        // alert(id);
         $.ajax({
             type:"post",
-            url:"/deleteFaqById",
+            url:"/showInfoFaq",
             data:{
-              "id":id
+                "id":id
             },
-            dataType:"text",
             success:function (data) {
-                alert(data);
-                alert("success");
-                present_row.remove();
+               console.log(data)
+               // console.log(data['faqanswername']);
+               $('#modalfaqname').text(data['faqtitle']);
+               $('#modalclassifyname').text(data['faqclassifyname']);
+               $('#modalfaqanswer').html(data['faqanswername']);
+
             },
             error:function (data) {
                 alert("aaaaaaaaaa");
                 alert("error");
             }
         });
-        // alert(id)
+
     }
+
 
     function modifyTable() {
         var topClassifyId = $('#classity1>option:selected').val();
@@ -254,7 +336,7 @@
                         '                        <i class="glyphicon glyphicon-trash"></i>\n' +
                         '                        </button>';
                     var showindex = document.createElement("td");
-                    showindex.innerHTML = '<button class="btn btn-white btn-sm" type="button">\n' +
+                    showindex.innerHTML = '<button id='+id+' class="btn btn-white btn-sm" data-toggle="modal" data-target="#showModal"  type="button" onclick="showInfo(this);">\n' +
                         '                        <i class="glyphicon glyphicon-eye-open"></i>\n' +
                         '                        </button>';
 
@@ -278,6 +360,29 @@
         });
     }
 
+
+    function approveFaq(id) {
+        var present_row = event.target.parentNode.parentNode;
+        console.log(present_row);
+
+        $.ajax({
+            type:"post",
+            url:"/updateFaqState",
+            data:{
+                "id":id
+            },
+            dataType:"text",
+            success:function (data) {
+                console.log(data);
+                alert("success");
+                present_row.remove();
+            },
+            error:function (data) {
+                alert("aaaaaaaaaa");
+                alert("error");
+            }
+        });
+    }
 </script>
 <script type="text/javascript">
 

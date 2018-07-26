@@ -1,7 +1,10 @@
 package com.serviceimpl;
 
 import com.dao.TblPermissionMapper;
+import com.dao.TblRolePermissionMapper;
 import com.pojo.TblPermission;
+import com.pojo.TblRolePermission;
+import com.pojo.TblRolePermissionExample;
 import com.service.PermissionService;
 import com.view.PermissionView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,8 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     private TblPermissionMapper permissionMapper;
+    @Autowired
+    private TblRolePermissionMapper rolePermissionMapper;
 
     @Override
     public List<PermissionView> getPermissionList() {
@@ -49,6 +54,27 @@ public class PermissionServiceImpl implements PermissionService {
     public int addPermission(TblPermission permission) {
         int count = permissionMapper.insert(permission);
         return count;
+    }
+
+    @Override
+    public List<PermissionView> getPermissionListByRoleId(String roleid) {
+        TblRolePermissionExample rolePermissionExample = new TblRolePermissionExample();
+        rolePermissionExample.createCriteria().andRoleidEqualTo(roleid);
+        List<TblRolePermission> rolePermissions = rolePermissionMapper.selectByExample(rolePermissionExample);
+
+        List<PermissionView> list = new ArrayList<>();
+        for (TblRolePermission rolePermission : rolePermissions) {
+            TblPermission permission = permissionMapper.selectByPrimaryKey(rolePermission.getPermissionid());
+
+            PermissionView permissionView = new PermissionView();
+            permissionView.setPermissionId(permission.getPermissionid());
+            permissionView.setPermissionLogicName(permission.getPermissionlogicname());
+            permissionView.setPermissionPhysicalName(permission.getPermissionphysicalname());
+            permissionView.setTime(permission.getTime());
+
+            list.add(permissionView);
+        }
+        return list;
     }
 
 

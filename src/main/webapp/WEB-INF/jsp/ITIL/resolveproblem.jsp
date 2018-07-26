@@ -24,9 +24,10 @@
 </head>
 <body>
 <div id="wrapper">
-    <jsp:include page="/topbar.html"/>
-    <jsp:include page="/leftbar.html"/>
-
+    <%--<jsp:include page="/topbar.html"/>--%>
+    <%--<jsp:include page="/leftbar.html"/>--%>
+        <%@include file="/topbar.html"%>
+        <%@include file="/leftbar.html"%>
     <div id="page-wrapper">
         <div id="page-inner">
             <div class="panel panel-default">

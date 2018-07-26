@@ -7,6 +7,8 @@ import com.dao.TblUserMapper;
 import com.pojo.*;
 import com.service.FaqService;
 import com.view.FaqView;
+import com.view.FaqViewUnDeal;
+import com.view.Faq_AnswerView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -77,6 +79,72 @@ public class FaqServiceImpl implements FaqService {
         }
 
         int count = faqquestionMapper.deleteByPrimaryKey(id);
+        return count;
+    }
+
+    @Override
+    public Faq_AnswerView getFaqDetailByID(String questionid) {
+        Faq_AnswerView faq_answerView = new Faq_AnswerView();
+
+        TblFaqquestion faqquestion = faqquestionMapper.selectByPrimaryKey(questionid);
+        faq_answerView.setFAQQUESTIONID(questionid);
+        faq_answerView.setFAQTITLE(faqquestion.getFaqtitle());
+
+        faq_answerView.setFAQCLASSIFYID(faqquestion.getFaqclassifyid());
+        faq_answerView.setFAQCLASSIFYNAME(faqclassifyMapper.selectByPrimaryKey(faqquestion.getFaqclassifyid()).getFaqclassifyname());
+
+        TblFaqanswerExample faqanswerExample = new TblFaqanswerExample();
+        faqanswerExample.createCriteria().andFaqquestionidEqualTo(questionid);
+        List<TblFaqanswer> faqanswers = faqanswerMapper.selectByExampleWithBLOBs(faqanswerExample);
+        for (TblFaqanswer faqanswer : faqanswers) {
+            faq_answerView.setFAQANSWERID(faqanswer.getFaqanswerid());
+            faq_answerView.setFAQANSWERNAME(faqanswer.getFaqcontent());
+        }
+        return faq_answerView;
+    }
+
+    @Override
+    public List<FaqViewUnDeal> getFaqListUnDeal() {
+        List<FaqViewUnDeal> list = new ArrayList<>();
+
+        TblFaqquestionExample faqquestionExample = new TblFaqquestionExample();
+        faqquestionExample.createCriteria().andFaqstateEqualTo(1);
+        List<TblFaqquestion> faqquestions = faqquestionMapper.selectByExampleWithBLOBs(faqquestionExample);
+        for (TblFaqquestion faqquestion : faqquestions) {
+            FaqViewUnDeal faqViewUnDeal = new FaqViewUnDeal();
+
+            faqViewUnDeal.setFAQTITLE(faqquestion.getFaqtitle());
+            faqViewUnDeal.setFAQQUESTIONID(faqquestion.getFaqquestionid());
+            faqViewUnDeal.setFAQKEYWORDS(faqquestion.getFaqkeywords());
+            faqViewUnDeal.setFAQCLASSIFYID(faqquestion.getFaqclassifyid());
+            faqViewUnDeal.setFAQCLASSIFYName(faqclassifyMapper.selectByPrimaryKey(faqquestion.getFaqclassifyid()).getFaqclassifyname());
+            faqViewUnDeal.setCOLLECTION(faqquestion.getCollection());
+            faqViewUnDeal.setSCAN(faqquestion.getScan());
+            faqViewUnDeal.setMODIFYTIME(faqquestion.getModifytime());
+            faqViewUnDeal.setFAQDESCRIPTION(faqquestion.getFaqdescription());
+            faqViewUnDeal.setMODIFYNUMBER(faqquestion.getModifynumber());
+            faqViewUnDeal.setFAQSTATE(1);
+            faqViewUnDeal.setUSERID(faqquestion.getUserid());
+            faqViewUnDeal.setUSERNAME(userMapper.selectByPrimaryKey(faqquestion.getUserid()).getUsername());
+
+            TblFaqanswerExample faqanswerExample = new TblFaqanswerExample();
+            faqanswerExample.createCriteria().andFaqquestionidEqualTo(faqquestion.getFaqquestionid());
+            List<TblFaqanswer> tblFaqanswers = faqanswerMapper.selectByExampleWithBLOBs(faqanswerExample);
+            for (TblFaqanswer tblFaqanswer : tblFaqanswers) {
+                faqViewUnDeal.setFaqAnswer(tblFaqanswer.getFaqcontent());
+            }
+
+            list.add(faqViewUnDeal);
+
+        }
+        return list;
+    }
+
+    @Override
+    public int updateFaqState(String id) {
+        TblFaqquestion faqquestion = faqquestionMapper.selectByPrimaryKey(id);
+        faqquestion.setFaqstate(2);
+        int count = faqquestionMapper.updateByPrimaryKey(faqquestion);
         return count;
     }
 }

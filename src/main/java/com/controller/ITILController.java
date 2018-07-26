@@ -145,6 +145,11 @@ public class ITILController {
     @RequestMapping("/FAQmanager")
     public ModelAndView findAllFaq(){
         ModelAndView mv = new ModelAndView();
+
+        List<FaqViewUnDeal> faqListUnDeal = faqService.getFaqListUnDeal();
+
+
+        mv.addObject("faqListUnDeal",faqListUnDeal);
         mv.setViewName("ITIL/FAQmanager");
         return mv;
     }
@@ -161,6 +166,24 @@ public class ITILController {
     public void deleteFaqById(HttpServletRequest request,HttpServletResponse response){
         String id = request.getParameter("id");
         int count = faqService.deleteFaqById(id);
+        try {
+            response.getWriter().print(count);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @RequestMapping("/showInfoFaq")
+    public @ResponseBody Faq_AnswerView showInfoFaq(HttpServletRequest request){
+        String questionid = request.getParameter("id");
+        Faq_AnswerView faq_answerView = faqService.getFaqDetailByID(questionid);
+        return faq_answerView;
+    }
+
+    @RequestMapping("/updateFaqState")
+    public void updateFaqState(HttpServletRequest request,HttpServletResponse response){
+        String id = request.getParameter("id");
+        int count = faqService.updateFaqState(id);
         try {
             response.getWriter().print(count);
         } catch (IOException e) {

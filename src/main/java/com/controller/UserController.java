@@ -53,10 +53,14 @@ public class UserController {
             session.setAttribute("loginuser",user);
             return "redirect:/user";
         }
-
-
     }
 
+
+    @RequestMapping("/logoutuser")
+    public String logoutUser(HttpSession session){
+        session.removeAttribute("loginuser");
+        return "redirect:login.html";
+    }
 
     @RequestMapping("/user")
     public ModelAndView getAllUser(){

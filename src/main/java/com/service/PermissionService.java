@@ -14,4 +14,6 @@ public interface PermissionService {
     int deletePermissionById(String permissionid);
 
     int addPermission(TblPermission permission);
+
+    List<PermissionView> getPermissionListByRoleId(String roleid);
 }

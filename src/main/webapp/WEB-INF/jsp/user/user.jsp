@@ -20,9 +20,10 @@
 </head>
 <body>
 <div id="wrapper">
-    <jsp:include page="/topbar.html"></jsp:include>
-    <jsp:include page="/leftbar.html"></jsp:include>
-    <%--<%@include file="/leftbar.html"%>--%>
+    <%--<jsp:include page="/topbar.html"></jsp:include>--%>
+    <%--<jsp:include page="/leftbar.html"></jsp:include>--%>
+    <%@include file="/topbar.html"%>
+    <%@include file="/leftbar.html"%>
     <div id="page-wrapper">
         <div class="row">
             <div class="col-md-12">
